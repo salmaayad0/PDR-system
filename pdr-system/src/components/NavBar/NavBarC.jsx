@@ -1,11 +1,12 @@
 import React from "react";
 import DropDown from "./DropDown";
+import style from "./Nav.module.css";
 
 function NavBarC() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+    <nav className={`navbar navbar-expand-lg ` + style.navBg}>
+      <div className="container">
+        <a className="logo" href="/">
           PDR system
         </a>
         <button
@@ -21,7 +22,7 @@ function NavBarC() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ma-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <DropDown />
           </ul>
         </div>

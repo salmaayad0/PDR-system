@@ -1,0 +1,49 @@
+.navBg {
+background: var(--bgGradient);
+}
+
+.adminIcon {
+  color: var(--purple);
+  background-color: var(--bgBlue);
+  transition: all 1s;
+}
+
+.adminIcon:hover {
+  background-color: var(--purple);
+  color: var(--blue);
+}
+
+.adminInput{
+    background-color: var(--blue);
+    color: var(--purple);
+    border: 1px solid #bddaec;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: all 1s;
+}
+
+.adminInput:focus{
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 5px #7480bd;
+}
+
+.sumitButton {
+  font-family: var(--font-three);
+  color: var(--purple);
+  background-color: var(--blue);
+  border: solid 1px var(--purple);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 15px;
+  margin: 3px 20px;
+  transition: all 1s;
+}
+
+.sumitButton:hover {
+  color: var(--purple);
+  background-color: var(--purple);
+}

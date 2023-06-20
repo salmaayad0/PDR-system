@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import style from './Nav.module.css'
 
 export default function AdminLogin() {
   const [formData, setFormData] = useState({
@@ -51,9 +52,9 @@ export default function AdminLogin() {
   return (
     <>
       <form method="POST" className="dropdown-item" action="/" onSubmit={handleSubmit}>
-        <li className="mb-1">
+        <li className="mb-2">
         <input
-          className="form-control form-control-sm"
+          className={`form-control form-control-sm ` + style.adminInput}
           type="email"
           name="email"
           placeholder="admin email"
@@ -63,9 +64,9 @@ export default function AdminLogin() {
         {errors.email && <span className="error">{errors.email}</span>}
         </li>
         
-        <li className="mb-1">
+        <li className="mb-2">
         <input
-          className="form-control form-control-sm"
+        className={`form-control form-control-sm ` + style.adminInput}
           type="password"
           name="password"
           placeholder="your password"
@@ -76,7 +77,7 @@ export default function AdminLogin() {
         </li>
 
         <li>
-          <button type="submit" className="mb-1">Login</button>
+          <button type="submit" className={style.sumitButton}>Login</button>
         </li>
 
       </form>

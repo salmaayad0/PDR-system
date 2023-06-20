@@ -1,11 +1,32 @@
-:root{
-    --font-one: 'Castoro Titling', cursive;
-    --font-two: 'Jost', sans-serif;
-    --font-three: 'Roboto', sans-serif;
-    --pink: #F2AEC7;
-    --purple: #7A85BF;
-    --blue: #C9E2F2;
-    --yellow: #F2CD88;
-    --orange: #D96B43;
+:root {
+  --font-one: "Castoro Titling", cursive;
+  --font-two: "Jost", sans-serif;
+  --font-three: "Roboto", sans-serif;
+  --pink: #f2aec7;
+  --purple: #7a85bf;
+  --blue: #c9e2f2;
+  --bgBlue: rgba(201, 226, 242, 0.5);
+  --yellow: #f2cd88;
+  --orange: #d96b43;
+  /* --bgGrad: rgb(236, 219, 187); */
+  --bgGradient: linear-gradient(
+    90deg,
+    rgba(236, 219, 187, 1) 10%,
+    rgba(244, 188, 208, 1) 40%,
+    rgba(202, 223, 237, 1) 90%
+  );
 }
 
+.logo {
+  font-family: "Geologica", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--orange);
+  text-decoration: none;
+  transition: all 1s;
+}
+
+.logo:hover {
+  color: #af5331;
+  font-weight: 500;
+}

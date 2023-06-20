@@ -1,0 +1,37 @@
+.footer {
+  background: var(--bgGradient);
+  color: var(--purple);
+}
+
+.footerContainer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.footerContent {
+  margin-right: 30px;
+}
+
+.footerContent span{
+    color: var(--orange);
+}
+
+.content li{
+list-style: none;
+display: inline;
+margin: 3px 7px;
+}
+
+.contact{
+  font-family: var(--font-two);
+  font-weight: 300;
+  font-size: 18px;
+  color: var(--orange);
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.contact:hover{
+  color: #af5331;
+  font-size: 20px;
+}
