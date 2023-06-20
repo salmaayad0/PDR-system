@@ -1,0 +1,76 @@
+.main{
+    height: 600px;
+    width: 100%;
+}
+
+.containerImage{
+    height: 100%;
+    width: 100%;
+    background-image: url('/public/media/bg.webp');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.containerImage::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: var(--bgBlue);  
+}
+
+.user{
+    height: 300px;
+    width: 300px;
+    border: 1px solid var(--yellow);
+    box-shadow: 3px 2px 7px 2px rgba(242, 174, 199, 0.5);
+    border-radius: 30%;
+    background-color: var(--purple);
+    position: relative;
+    top: 120px;
+    left: 170px;
+    transition: all 1s ease-in-out;
+    z-index: 3;
+}
+
+.user:hover{
+    border: 1px solid var(--orange);
+    box-shadow: 5px 3px 7px 2px rgba(242, 174, 199, 0.7);
+}
+
+.user::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-image: url('/public/media/doc.png');
+    background-repeat: no-repeat;
+    object-fit: contain;
+    z-index: 4;
+}
+
+.userLogin{
+    font-family: var(--font-three);
+    color: var(--orange);
+    background-color: var(--pink);
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: all 1s;
+    position: absolute;
+    bottom: 20px;
+    left: 100px;
+    z-index: 5;
+}
+
+.userLogin:hover{
+  color: var(--pink);
+  background-color: var(--orange);
+}
+

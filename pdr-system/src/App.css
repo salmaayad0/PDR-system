@@ -2,10 +2,10 @@
   --font-one: "Castoro Titling", cursive;
   --font-two: "Jost", sans-serif;
   --font-three: "Roboto", sans-serif;
-  --pink: #f2aec7;
+  --pink: rgb(242, 174, 199);
   --purple: #7a85bf;
   --blue: #c9e2f2;
-  --bgBlue: rgba(201, 226, 242, 0.5);
+  --bgBlue: rgba(201, 226, 242, 0.4);
   --yellow: #f2cd88;
   --orange: #d96b43;
   /* --bgGrad: rgb(236, 219, 187); */
@@ -15,6 +15,10 @@
     rgba(244, 188, 208, 1) 40%,
     rgba(202, 223, 237, 1) 90%
   );
+}
+
+*{
+    margin: 0%;
 }
 
 .logo {

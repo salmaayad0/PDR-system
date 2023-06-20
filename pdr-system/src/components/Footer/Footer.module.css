@@ -1,11 +1,13 @@
 .footer {
   background: var(--bgGradient);
   color: var(--purple);
+  padding: 7px 0px 0px 5px;
 }
 
 .footerContainer{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .footerContent {
@@ -26,7 +28,7 @@ margin: 3px 7px;
   font-family: var(--font-two);
   font-weight: 300;
   font-size: 18px;
-  color: var(--orange);
+  color:var(--orange);
   cursor: pointer;
   transition: all 1s;
 }
