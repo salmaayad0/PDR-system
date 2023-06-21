@@ -6,7 +6,6 @@ import UserMood  from "./User/UserMood";
 export default function Main() {
   return (
     <>
-    {/* className={style.user} */}
       <section className={style.main}>
         <div className={style.containerImage}>
           <div

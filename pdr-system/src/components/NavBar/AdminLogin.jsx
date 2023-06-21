@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import style from './Nav.module.css'
+import style from "./Nav.module.css";
 
 export default function AdminLogin() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    userName: "",
+    password: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -14,29 +14,21 @@ export default function AdminLogin() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const isValidEmail = (email) => {
-    const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return emailPattern.test(email);
-  };
-
-
   const validateFormData = (data) => {
     const errors = {};
 
-    if (!data.email) 
-      errors.email = 'Email is required';
-    else if (!isValidEmail(data.email)) 
-      errors.email = 'Email is invalid';
-    
+    if (!data.userName) 
+    errors.userName = "name is required";
+    else if (data.userName.length < 3) 
+    errors.userName = "name is invalid";
+
     if (!data.password) 
-      errors.password = 'Password is required';
-    else if (data.password.length < 8) 
-      errors.password = 'Password must be at least 8 characters';
-    
+    errors.password = "Password is required";
+    else if (data.password.length < 8)
+      errors.password = "Wrong Password";
+
     return errors;
   };
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,35 +43,43 @@ export default function AdminLogin() {
 
   return (
     <>
-      <form method="POST" className="dropdown-item" action="/" onSubmit={handleSubmit}>
+      <form
+        method="POST"
+        className="dropdown-item"
+        action="/"
+        onSubmit={handleSubmit}
+      >
         <li className="mb-2">
-        <input
-          className={`form-control form-control-sm ` + style.adminInput}
-          type="email"
-          name="email"
-          placeholder="admin email"
-          aria-label="admin email"
-          value={formData.email} onChange={handleInputChange} 
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
+          <input
+            className={`form-control form-control-sm ` + style.adminInput}
+            type="text"
+            name="userName"
+            placeholder="admin user name"
+            aria-label="admin user name"
+            value={formData.userName}
+            onChange={handleInputChange}
+          />
+          {errors.userName && <span className="error">{errors.userName}</span>}
         </li>
-        
+
         <li className="mb-2">
-        <input
-        className={`form-control form-control-sm ` + style.adminInput}
-          type="password"
-          name="password"
-          placeholder="your password"
-          aria-label="your password"
-          value={formData.password} onChange={handleInputChange} 
-        />
-        {errors.password && <span className="error">{errors.password}</span>}
+          <input
+            className={`form-control form-control-sm ` + style.adminInput}
+            type="password"
+            name="password"
+            placeholder="your password"
+            aria-label="your password"
+            value={formData.password}
+            onChange={handleInputChange}
+          />
+          {errors.password && <span className="error">{errors.password}</span>}
         </li>
 
         <li>
-          <button type="submit" className={style.sumitButton}>Login</button>
+          <button type="submit" className={style.sumitButton}>
+            Login
+          </button>
         </li>
-
       </form>
     </>
   );
