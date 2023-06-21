@@ -23,16 +23,16 @@ export default function AdminLogin() {
   const validateFormData = (data) => {
     const errors = {};
 
-    if (!data.email) {
+    if (!data.email) 
       errors.email = 'Email is required';
-    } else if (!isValidEmail(data.email)) {
+    else if (!isValidEmail(data.email)) 
       errors.email = 'Email is invalid';
-    }
-    if (!data.password) {
+    
+    if (!data.password) 
       errors.password = 'Password is required';
-    } else if (data.password.length < 8) {
+    else if (data.password.length < 8) 
       errors.password = 'Password must be at least 8 characters';
-    }
+    
     return errors;
   };
 
