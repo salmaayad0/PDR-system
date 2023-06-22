@@ -29,10 +29,35 @@ class Sessions(models.Model):
     number=models.IntegerField(max_length=100)
     medicine=models.TextField(max_length=1000)
     medical_analysis=models.TextField(max_length=1000)
-    analysis_image=models.ImageField(upload_to="photos/%y/%m/%d")
-    x_ray= models.ImageField(upload_to='images')  
+    analysis_image=models.ImageField(upload_to="photos/%y/%m/%d" ,null=True ,blank=True)
+    x_ray= models.ImageField(upload_to='images',null=True ,blank=True)  
     doc_name=models.ForeignKey( Doctors,
         on_delete=models.CASCADE)
-    pat_id=models.ForeignKey( Patients,
+    pat_name=models.ForeignKey( Patients,
         on_delete=models.CASCADE)
-# Create your models here.
+    def __str__(self):
+        return (f"session number:{self.number} with doctor:{self.doc_name}")
+
+
+
+
+
+# class Pat_Doc(models.Model):
+#       doc_name=models.ManyToManyField(Doctors)
+#       pat_name=models.ManyToManyField(Patients)
+      
+
+
+
+
+class History(models.Model):
+    Diabetes=models.BooleanField(default=False)     
+    Cancer=models.BooleanField(default=False)     
+    Heart_Disease=models.BooleanField(default=False)     
+    High_Blood_Pressure=models.BooleanField(default=False)     
+    High_Cholesterol=models.BooleanField(default=False)   
+    pat_name=models.ForeignKey( Patients,
+        on_delete=models.CASCADE)  
+ 
+    def __str__(self):
+        return (f"{self.pat_name}'s history")
