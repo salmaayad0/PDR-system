@@ -6,7 +6,28 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
-import { store } from './store';
+import { store } from './redux/store';
+// import {
+//   createBrowserRouter,
+//   RouterProvider,
+// } from "react-router-dom";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Root />,
+//     children: [
+//       {
+//         path: "dashboard",
+//         element: <Dashboard />,
+//       },
+//       {
+//         path: "about",
+//         element: <About />,
+//       },
+//     ],
+//   },
+// ]);
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

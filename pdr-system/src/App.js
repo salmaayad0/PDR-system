@@ -8,7 +8,7 @@ import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Doctor from './pages/Doctor';
 import Patient from './pages/Patient';
-
+import Admin from './pages/Admin';
 
 function App() {
 
@@ -46,6 +46,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/doctor' element={<Doctor />} />
             <Route path='/patient' element={<Patient />} />
+            <Route path='/admin' element={<Admin />} />
           </Route>
         </Routes>
       )}

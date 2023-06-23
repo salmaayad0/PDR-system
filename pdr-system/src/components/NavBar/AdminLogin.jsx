@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Nav.module.css";
+import { useDispatch } from "react-redux";
+import { adminLoginCheck } from "../../redux/slices/admin";
+import { Form,  useLocation, useSubmit } from "react-router-dom";
 
 export default function AdminLogin() {
+
+  // AdminAction();
+
   const [formData, setFormData] = useState({
-    userName: "",
+    username: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({});
 
+  const dispatch = useDispatch();
+
+  const clearForm = () => {
+    setFormData({
+    username: "",
+    password: "",
+    });
+  };
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -17,14 +32,14 @@ export default function AdminLogin() {
   const validateFormData = (data) => {
     const errors = {};
 
-    if (!data.userName) 
-    errors.userName = "name is required";
-    else if (data.userName.length < 3) 
-    errors.userName = "name is invalid";
+    if (!data.username) 
+    errors.username = "name is required";
+    else if (data.username.length <= 3) 
+    errors.username = "name is invalid";
 
     if (!data.password) 
     errors.password = "Password is required";
-    else if (data.password.length < 8)
+    else if (data.password.length < 2)
       errors.password = "Wrong Password";
 
     return errors;
@@ -36,6 +51,12 @@ export default function AdminLogin() {
     if (Object.keys(validationErrors).length === 0) {
       // submit form data
       // send data to backend
+      let username = formData.username;
+      let password = formData.password;
+      dispatch(adminLoginCheck({username, password}));
+      clearForm();
+      console.log('accepted');
+
     } else {
       setErrors(validationErrors);
     }
@@ -46,20 +67,20 @@ export default function AdminLogin() {
       <form
         method="POST"
         className="dropdown-item"
-        action="/"
+        action=""
         onSubmit={handleSubmit}
       >
         <li className="mb-2">
           <input
             className={`form-control form-control-sm ` + style.adminInput}
             type="text"
-            name="userName"
+            name="username"
             placeholder="admin user name"
             aria-label="admin user name"
-            value={formData.userName}
+            value={formData.username}
             onChange={handleInputChange}
           />
-          {errors.userName && <span className="error">{errors.userName}</span>}
+          {errors.username && <span className="error">{errors.username}</span>}
         </li>
 
         <li className="mb-2">
@@ -83,4 +104,17 @@ export default function AdminLogin() {
       </form>
     </>
   );
+}
+
+const AdminAction = () => {
+  const submit = useSubmit();
+  const location = useLocation();
+ 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      submit(null, { method: "post", action: "/admin" });
+    }, 5 * 60_000);
+
+    return () => clearTimeout(timer);
+  }, [submit, location]);
 }
