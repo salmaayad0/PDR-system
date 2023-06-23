@@ -35,6 +35,11 @@
     padding: 20px;
     
   }
+
+  .container2 {
+    padding: 30px;
+    padding-inline: 20px;
+  }
   
   .col-25 {
     float: left;
