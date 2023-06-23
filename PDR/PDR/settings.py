@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-vjz9o4p+m$8)*axrv1uqo@5y8habifp=#mmp8t@jm@7t*0@cpx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   'rest_framework',
-   'rest_framework.authtoken',
+    'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'user',
-
+    'corsheaders',
 ]
 REST_FRAMEWORK = {  'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
@@ -59,13 +59,14 @@ REST_FRAMEWORK = {  'DEFAULT_PERMISSION_CLASSES': [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+   
 ROOT_URLCONF = 'PDR.urls'
 
 TEMPLATES = [
@@ -94,7 +95,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pdr',
-        'USER': 'postgres',
+        'USER': 'admin',
         'PASSWORD': 'eman123',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -142,3 +143,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# cors header 
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]

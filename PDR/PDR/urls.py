@@ -34,6 +34,7 @@ urlpatterns = [
     # path('api-token-auth', views.obtain_auth_token)
 
 ]
+
 router=DefaultRouter()
 router.register('user',UserViewSet,basename='user')
 urlpatterns+=router.urls

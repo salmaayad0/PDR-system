@@ -13,6 +13,7 @@ distro-info==1.5
 Django==4.2.1
 django-cors-headers==4.1.0
 djangorestframework==3.14.0
+djangorestframework-simplejwt==5.2.2
 gpg==1.18.0
 gyp==0.1
 httplib2==0.20.4
@@ -26,6 +27,7 @@ language-selector==0.1
 launchpadlib==1.11.0
 lazr.restfulclient==0.14.5
 lazr.uri==1.0.6
+Markdown==3.4.3
 more-itertools==8.10.0
 nftables==0.1
 oauthlib==3.2.2
