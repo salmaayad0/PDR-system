@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    
+  }
+  main {
+    padding: 5%;
+     }
+
+  input[type=text], textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffffc3;
+    border: 1px solid #35599F;
+    border-radius: 10px;
+    resize: vertical;
+  }
+  
+  h2 {
+    color: #35599F;
+    font-size: 35px;
+
+  }
+  
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    color: #4770b1fa;
+    font-size: x-large;
+  }
+  
+ 
+  .container {
+    border-radius: 5px;
+    background-color: #ebebeb68;
+    padding: 20px;
+    
+  }
+  
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+  
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+   
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
