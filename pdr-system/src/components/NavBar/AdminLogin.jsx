@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import style from "./Nav.module.css";
 import { useDispatch } from "react-redux";
 import { adminLoginCheck } from "../../redux/slices/admin";
-import { Form,  useLocation, useSubmit } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 
 export default function AdminLogin() {
-
-  // AdminAction();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -64,11 +62,11 @@ export default function AdminLogin() {
 
   return (
     <>
-      <form
+      <Form
         method="POST"
         className="dropdown-item"
-        action=""
-        onSubmit={handleSubmit}
+        action="/admin"
+        // onSubmit={handleSubmit}
       >
         <li className="mb-2">
           <input
@@ -101,20 +99,18 @@ export default function AdminLogin() {
             Login
           </button>
         </li>
-      </form>
+      </Form>
     </>
   );
 }
 
-const AdminAction = () => {
-  const submit = useSubmit();
-  const location = useLocation();
- 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      submit(null, { method: "post", action: "/admin" });
-    }, 5 * 60_000);
-
-    return () => clearTimeout(timer);
-  }, [submit, location]);
+export const adminAction = async({request}) => {
+const data = await request.formData();
+const submited = {
+  username: data.get('username'),
+  password: data.get('password')
+}
+console.log(submited);
+// post req
+return redirect('/admin')
 }
