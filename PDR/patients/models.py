@@ -8,7 +8,7 @@ class Patients(models.Model):
         ("female","female")
     ]
     name=models.CharField(max_length=50)
-    age=models.IntegerField(max_length=2)
+    age=models.IntegerField()
     address=models.CharField(max_length=100)
     phone_regex = RegexValidator(regex=r'^(00201|\+201|01)[0-2,5]{1}[0-9]{8}$', 
                                  message="Phone number must be entered in the format:010|012|015")
@@ -26,7 +26,7 @@ class Patients(models.Model):
 
 
 class Sessions(models.Model):
-    number=models.IntegerField(max_length=100)
+    number=models.IntegerField()
     medicine=models.TextField(max_length=1000)
     medical_analysis=models.TextField(max_length=1000)
     analysis_image=models.ImageField(upload_to="photos/%y/%m/%d" ,null=True ,blank=True)

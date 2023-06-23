@@ -1,24 +1,32 @@
-from django.contrib.auth.models import User
-from rest_framework import serializers
-from django.db.models import fields
+# from django.contrib.auth.models import User
+from rest_framework import serializers,fields
+# from django.db.models import fields
+from django.contrib.auth import get_user_model
 
-
-class AdminSerializer (serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = [ 'username', 'password']
+        model = get_user_model()
+        fields = '__all__'
 
 
 
 
-class ChangePasswordSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True)
-    password2 = serializers.CharField(write_only=True, required=True)
-    old_password = serializers.CharField(write_only=True, required=True)
 
-    class Meta:
-        model = User
-        fields = ('old_password', 'password', 'password2')
+
+
+
+
+
+
+
+# class ChangePasswordSerializer(serializers.ModelSerializer):
+#     password = serializers.CharField(write_only=True, required=True)
+#     password2 = serializers.CharField(write_only=True, required=True)
+#     old_password = serializers.CharField(write_only=True, required=True)
+
+#     class Meta:
+#         model = User
+#         fields = ('old_password', 'password', 'password2')
 
 #     def validate(self, attrs):
 #         if attrs['password'] != attrs['password2']:
