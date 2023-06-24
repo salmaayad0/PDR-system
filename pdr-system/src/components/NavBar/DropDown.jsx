@@ -2,20 +2,21 @@ import React from "react";
 import { FaUserAlt } from "react-icons/fa";
 import AdminLogin from "./AdminLogin";
 import style from "./Nav.module.css";
+import { Link } from "react-router-dom";
 
 export default function DropDown() {
   return (
     <>
       <li className="nav-item dropdown">
-        <a
+        <Link
           className={`nav-link dropdown-toggle `+ style.adminIcon }
-          href="/"
+          to={'/'}
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           <FaUserAlt className={style.adminIcon} />
-        </a>
+        </Link>
         <ul className="dropdown-menu">
           <AdminLogin />
         </ul>

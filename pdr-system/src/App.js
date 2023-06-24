@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route,
-   RouterProvider,
-   createBrowserRouter, 
-   createRoutesFromElements 
-  } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 // Aos
 import AOS from 'aos';
@@ -17,10 +13,9 @@ import Home from './pages/Home';
 import Doctor from './pages/Doctor';
 import Patient from './pages/Patient';
 import Admin from './pages/Admin';
-import { adminAction } from './components/NavBar/AdminLogin';
+import AddSession from './pages/AddSession';
 
 function App() {
-
   useEffect(() => {
     AOS.init(20000);
   }, [])
@@ -32,19 +27,6 @@ function App() {
       setLoading(false);
     }, 2000);
   }, []);
-
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route>
-          <Route path='/' element={<Layout />} >
-            <Route path='/' element={<Home />} />
-            <Route path='/doctor' element={<Doctor />} />
-            <Route path='/patient' element={<Patient />} />
-            <Route path='/admin' element={<Admin />}  action={adminAction} />
-          </Route>
-        </Route>
-    )
-  )
 
   return (
     <>
@@ -63,15 +45,18 @@ function App() {
           wrapperClass="blocks-wrapper"
         />
       ) : (
-        // <Routes>
-        //   <Route path='/' element={<Layout />} >
-        //     <Route path='/' element={<Home />} />
-        //     <Route path='/doctor' element={<Doctor />} />
-        //     <Route path='/patient' element={<Patient />} />
-        //     <Route path='/admin' element={<Admin />} />
-        //   </Route>
-        // </Routes>
-        <RouterProvider router={router} />
+        <>
+        <Routes>
+          <Route path='/' element={<Layout />} >
+            <Route path='/' element={<Home />} />
+            <Route path='/doctor' element={<Doctor />} />
+            <Route path='/patient' element={<Patient />} />
+            <Route path='/admin' element={<Admin />} />
+            <Route path='/addsession' element={<AddSession />} />
+          </Route>
+        </Routes>
+        </>
+
       )}
     </>
   );

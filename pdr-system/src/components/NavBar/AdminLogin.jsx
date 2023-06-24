@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import style from "./Nav.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { adminLoginCheck } from "../../redux/slices/admin";
-import { Form, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
 
@@ -14,6 +14,10 @@ export default function AdminLogin() {
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
+
+  const { error, adminState } = useSelector( state => state.adminLoginSlice);
+
+  const navgate = useNavigate()
 
   const clearForm = () => {
     setFormData({
@@ -43,6 +47,7 @@ export default function AdminLogin() {
     return errors;
   };
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const validationErrors = validateFormData(formData);
@@ -52,21 +57,30 @@ export default function AdminLogin() {
       let username = formData.username;
       let password = formData.password;
       dispatch(adminLoginCheck({username, password}));
+      if(adminState)
+      {
       clearForm();
       console.log('accepted');
-
+      navgate('/admin');
+      }
+      else {
+        console.log(error)
+      }
+      
     } else {
       setErrors(validationErrors);
     }
   };
 
+
+
   return (
     <>
-      <Form
+      <form
         method="POST"
         className="dropdown-item"
-        action="/admin"
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
+        // action="/admin"
       >
         <li className="mb-2">
           <input
@@ -99,18 +113,19 @@ export default function AdminLogin() {
             Login
           </button>
         </li>
-      </Form>
+      </form>
     </>
   );
 }
 
-export const adminAction = async({request}) => {
-const data = await request.formData();
-const submited = {
-  username: data.get('username'),
-  password: data.get('password')
-}
-console.log(submited);
-// post req
-return redirect('/admin')
-}
+// export const adminAction = async({request}) => {
+// const data = await request.formData();
+// const submited = {
+//   username: data.get('username'),
+//   password: data.get('password')
+// }
+// console.log('action route');
+// console.log(submited);
+// // post req
+// return redirect('/admin')
+// }

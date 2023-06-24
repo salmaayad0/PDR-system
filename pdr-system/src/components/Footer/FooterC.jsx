@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 import IconFooter from "./IconFooter";
+import { Link } from "react-router-dom";
 
 export default function FooterC() {
   return (
@@ -38,18 +39,18 @@ export default function FooterC() {
           <div className={style.footerContent}>
             <ul className={style.content}>
               <li>
-                <a href="https://www.facebook.com/groups/169758414293528/?ref=share_group_link">
+                <Link to={"https://www.facebook.com/groups/169758414293528/?ref=share_group_link"}>
                 <IconFooter>
                     <FaFacebook />
                     </IconFooter>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="https://api.whatsapp.com/send?phone=01019070110">
+                <Link to={"https://api.whatsapp.com/send?phone=01019070110"}>
                 <IconFooter>
                     <FaWhatsapp />
                     </IconFooter>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

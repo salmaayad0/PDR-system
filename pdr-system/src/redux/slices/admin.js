@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const initialState = {
     loading: false,
-    admin: null,
-    error: '',
+    error: null,
+    adminState: null,
 }
 
 export const adminLoginCheck = createAsyncThunk('adminLoginCheck', async (obj, thunk) => {
@@ -13,7 +13,7 @@ export const adminLoginCheck = createAsyncThunk('adminLoginCheck', async (obj, t
         const { data } = await axios.post('http://127.0.0.1:8000/api/token/', obj);
         return data
     } catch (error) {
-        return rejectWithValue('There is an ERROR!')
+        return rejectWithValue('You are not allowed to login')
     }
 })
 
@@ -32,12 +32,14 @@ export const adminLoginSlice = createSlice({
 
         builder.addCase(adminLoginCheck.fulfilled, (state, action) => {
             state.loading = false;
-            state.admin = action.payload;
+            state.adminState = action.payload;
+            console.log(action.payload);
         })
 
         builder.addCase(adminLoginCheck.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
+          
         })
 
     }

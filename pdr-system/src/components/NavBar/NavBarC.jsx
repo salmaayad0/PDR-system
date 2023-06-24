@@ -1,14 +1,15 @@
 import React from "react";
 import DropDown from "./DropDown";
 import style from "./Nav.module.css";
+import { Link } from "react-router-dom";
 
 function NavBarC() {
   return (
     <nav className={`navbar navbar-expand-lg ` + style.navBg}>
       <div className="container">
-        <a className="logo" href="/">
+        <Link className="logo" to={'/'}>
           PDR system
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
