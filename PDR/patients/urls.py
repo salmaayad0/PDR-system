@@ -1,5 +1,6 @@
 from django.urls import path
-from . import views
-
+from .views import delete_patient,get_patient,update_patient
 urlpatterns = [
-    path('index', views.index,name="index"),]
+path('DeletePatient/<int:id>',delete_patient),
+path('UpdatePatient/<int:id>',get_patient),
+path('GetPatient/<int:id>',get_patient),]

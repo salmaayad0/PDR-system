@@ -8,11 +8,10 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
 from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes=(IsAuthenticated,)
     serializer_class=UserSerializer
     queryset=get_user_model().objects.all()
-
 

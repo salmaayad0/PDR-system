@@ -25,13 +25,12 @@ from user.views import UserViewSet
 from rest_framework.routers import DefaultRouter
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path("doctors/",include("doctors.urls")),
+    path("doctors/",include("doctors.urls")),
     path("patients/",include("patients.urls")),
     # path("",include("user.urls")),
     path('api-auth/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    # path('api-token-auth', views.obtain_auth_token)
 
 ]
 

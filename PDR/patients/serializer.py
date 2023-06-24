@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import *
 from django.db.models import fields
 
-class Doctorselizer(serializers.ModelSerializer):
+class Patientselizer(serializers.ModelSerializer):
     class Meta:
-        model=Doctors
+        model=Patients
         fields ='__all__'
