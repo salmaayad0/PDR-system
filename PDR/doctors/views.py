@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from  rest_framework.decorators import  api_view
 from .models import *
+from rest_framework.views import APIView
 from .serializer import *
 from rest_framework.status import *
 from django.shortcuts import  get_object_or_404
@@ -17,6 +18,7 @@ def delete_doctor(req,id):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_doctor(request,id):
     objcatgory=Doctors.objects.get(id=id)
     if(objcatgory is not None):
@@ -26,7 +28,8 @@ def get_doctor(request,id):
     
 
 
-
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def update_doctor(request,id):
     if(len(Doctors.objects.filter(id=id))!=0):
         updateobject=Doctors.objects.get(id=id)
@@ -36,3 +39,24 @@ def update_doctor(request,id):
             return Response(status=HTTP_202_ACCEPTED,data=updateobjectafterupdate.data)
     else:
         return  Response(status=HTTP_404_NOT_FOUND,data={'message':'id not found'})    
+    
+ 
+        
+class registrationView(APIView):
+
+    """"API endpoint for doctor Registration"""
+
+    permission_classes = []
+    def post(self, request, format=None):
+        registrationSerializer = Doctorselizer(
+            data=request.data.get('user_data'))
+        checkregistration = registrationSerializer.is_valid()
+        if checkregistration :
+            doctor = registrationSerializer.save()
+            return Response({
+                'user_data': registrationSerializer.data,
+            }, status=HTTP_201_CREATED)
+        else:
+            return Response({
+                'user_data': registrationSerializer.errors,
+            }, status=HTTP_400_BAD_REQUEST)     
