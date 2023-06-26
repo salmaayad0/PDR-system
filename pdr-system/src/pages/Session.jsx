@@ -16,6 +16,9 @@ export default function AddSession() {
             style.formContainer
           }
         >
+          <div className={style.title}>
+        <h2>New Session</h2>
+      </div>
           <SessionForm />
         </div>
       </BgImg>

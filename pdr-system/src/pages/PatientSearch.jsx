@@ -1,27 +1,29 @@
 import React from "react";
 import { BgImg } from "../components/Background/Bg.styles";
-import HistoryForm from "../components/Forms/HistoryForm";
 import style from "../components/Forms/Form.module.css";
+import PatientSearchForm from '../components/Forms/PatientSearchForm';
 
-export default function History() {
+export default function Patient() {
   return (
+    <>
     <section className="main">
       <BgImg>
         <div
-          data-aos="flip-right"
+          data-aos="zoom-in"
           data-aos-anchor-easing="ease-in-out"
           data-aos-duration="1500"
           className={
-            `d-flex flex-column justify-content-center text-center ` +
-            style.formContainer
+            `d-flex flex-column justify-content-center ` 
+            + style.formContainer
           }
         >
           <div className={style.title}>
-            <h2>Patient's medical history</h2>
+            <h2>Patient Search</h2>
           </div>
-          <HistoryForm />
+          <PatientSearchForm />
         </div>
       </BgImg>
     </section>
-  );
+  </>
+  )
 }

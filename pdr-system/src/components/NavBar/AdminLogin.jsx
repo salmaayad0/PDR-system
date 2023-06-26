@@ -79,7 +79,6 @@ export default function AdminLogin() {
         method="POST"
         className="dropdown-item"
         onSubmit={handleSubmit}
-        // action="/admin"
       >
         <li className="mb-2">
           <input

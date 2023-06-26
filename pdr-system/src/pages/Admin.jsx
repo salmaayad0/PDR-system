@@ -1,7 +1,33 @@
-import React from 'react'
+import React from "react";
+import { BgImg } from "../components/Background/Bg.styles";
+import style from "../components/Forms/Form.module.css";
 
 export default function Admin() {
   return (
-    <div>Admin</div>
+    <section className="main">
+    <BgImg>
+      <div
+        data-aos="flip-right"
+        data-aos-anchor-easing="ease-in-out"
+        data-aos-duration="1500"
+        className={
+          `d-flex flex-column justify-content-center ` 
+          + style.formContainer
+        }
+      >
+        <div className="text-center">
+          <button type="submit" className={style.sumitButton}>
+            Add Doctor
+          </button>
+        </div>
+
+        <div className="text-center">
+          <button type="submit" className={style.sumitButton}>
+            Add Patient
+          </button>
+        </div>
+      </div>
+    </BgImg>
+  </section>
   )
 }

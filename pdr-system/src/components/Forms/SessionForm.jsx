@@ -5,10 +5,6 @@ import style from './Form.module.css';
 export default function SessionForm() {
   return (
     <>
-      <div className={style.title}>
-        <h2>New Session</h2>
-      </div>
-      <div>
       <form method="">
         <ul className="list-inline ">
         <li className={`mb-2 `+ style.formInput}>
@@ -65,7 +61,6 @@ export default function SessionForm() {
 
         </ul>
       </form>
-      </div>
       
     </>
   );

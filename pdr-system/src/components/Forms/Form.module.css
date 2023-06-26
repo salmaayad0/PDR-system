@@ -20,6 +20,9 @@
 
 .formInput input[type="text"],
 .formInput input[type="date"],
+.formInput input[type="email"],
+.formInput input[type="password"],
+.formInput input[type="tel"],
 .formInput textarea{
     display:block;
     background-color: var(--blue);
