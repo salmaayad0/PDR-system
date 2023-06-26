@@ -6,12 +6,12 @@ import UserMood  from "./User/UserMood";
 export default function Main() {
   return (
     <>
-      <section className={style.main}>
+      <section className='main d-flex flex-row'>
         <div className={style.containerImage}>
           <div
             data-aos="fade-right"
             data-aos-anchor-easing="ease-in-out"
-            data-aos-duration="1500"  
+            data-aos-duration="1000"  
           >
             <UserMood>
             <Link to="/doctor">
@@ -25,7 +25,7 @@ export default function Main() {
           <div
             data-aos="fade-left"
             data-aos-anchor-easing="ease-in-out"
-            data-aos-duration="1500"  
+            data-aos-duration="1000"  
           >
             <UserMood varient='patient'>
             <Link to="/patient">

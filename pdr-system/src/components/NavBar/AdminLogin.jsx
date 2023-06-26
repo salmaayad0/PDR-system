@@ -59,20 +59,19 @@ export default function AdminLogin() {
       dispatch(adminLoginCheck({username, password}));
       if(adminState)
       {
+      navgate('/admin');
       clearForm();
       console.log('accepted');
-      navgate('/admin');
       }
       else {
-        console.log(error)
+        console.log(error);
+        clearForm();
       }
       
     } else {
       setErrors(validationErrors);
     }
   };
-
-
 
   return (
     <>
@@ -90,7 +89,7 @@ export default function AdminLogin() {
             placeholder="admin user name"
             aria-label="admin user name"
             value={formData.username}
-            onChange={handleInputChange}
+            onInput={handleInputChange}
           />
           {errors.username && <span className="error">{errors.username}</span>}
         </li>
@@ -103,7 +102,7 @@ export default function AdminLogin() {
             placeholder="your password"
             aria-label="your password"
             value={formData.password}
-            onChange={handleInputChange}
+            onInput={handleInputChange}
           />
           {errors.password && <span className="error">{errors.password}</span>}
         </li>
@@ -112,6 +111,7 @@ export default function AdminLogin() {
           <button type="submit" className={style.sumitButton}>
             Login
           </button>
+        { error ? <span className="error">{error}</span> : ''}
         </li>
       </form>
     </>

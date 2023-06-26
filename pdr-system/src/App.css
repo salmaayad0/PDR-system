@@ -18,7 +18,7 @@
 }
 
 *{
-    margin: 0%;
+  margin: 0%;
 }
 
 .logo {
@@ -33,4 +33,9 @@
 .logo:hover {
   color: #af5331;
   font-weight: 500;
+}
+
+.main{
+  min-height: 600px;
+  width: 100%;
 }

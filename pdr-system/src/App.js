@@ -13,7 +13,8 @@ import Home from './pages/Home';
 import Doctor from './pages/Doctor';
 import Patient from './pages/Patient';
 import Admin from './pages/Admin';
-import AddSession from './pages/AddSession';
+import Session from './pages/Session';
+import History from './pages/History'
 
 function App() {
   useEffect(() => {
@@ -52,7 +53,8 @@ function App() {
             <Route path='/doctor' element={<Doctor />} />
             <Route path='/patient' element={<Patient />} />
             <Route path='/admin' element={<Admin />} />
-            <Route path='/addsession' element={<AddSession />} />
+            <Route path='/session' element={<Session />} />
+            <Route path='/history' element={<History />} />
           </Route>
         </Routes>
         </>

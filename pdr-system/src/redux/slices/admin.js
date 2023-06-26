@@ -39,7 +39,7 @@ export const adminLoginSlice = createSlice({
         builder.addCase(adminLoginCheck.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
-          
+            state.adminState = null;     
         })
 
     }
