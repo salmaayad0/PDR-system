@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const initialState = {
     loading: false,
-    error: null,
+    error: '',
     adminState: null,
 }
 
@@ -13,7 +13,7 @@ export const adminLoginCheck = createAsyncThunk('adminLoginCheck', async (obj, t
         const { data } = await axios.post('http://127.0.0.1:8000/api/token/', obj);
         return data
     } catch (error) {
-        return rejectWithValue('You are not allowed to login')
+        return rejectWithValue('not allowed to login')
     }
 })
 

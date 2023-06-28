@@ -88,7 +88,7 @@ export default function AdminLogin() {
             placeholder="admin user name"
             aria-label="admin user name"
             value={formData.username}
-            onInput={handleInputChange}
+            onChange={handleInputChange}
           />
           {errors.username && <span className="error">{errors.username}</span>}
         </li>
@@ -110,21 +110,9 @@ export default function AdminLogin() {
           <button type="submit" className={style.sumitButton}>
             Login
           </button>
-        { error ? <span className="error">{error}</span> : ''}
+        { error ? <p className="error">{error}</p> : ''}
         </li>
       </form>
     </>
   );
 }
-
-// export const adminAction = async({request}) => {
-// const data = await request.formData();
-// const submited = {
-//   username: data.get('username'),
-//   password: data.get('password')
-// }
-// console.log('action route');
-// console.log(submited);
-// // post req
-// return redirect('/admin')
-// }
