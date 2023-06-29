@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import style from "./Nav.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { adminLoginCheck } from "../../redux/slices/admin";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
   const [formData, setFormData] = useState({
@@ -50,100 +50,90 @@ export default function AdminLogin() {
       // send data to backend
       let username = formData.username;
       let password = formData.password;
-      handleRequest(username, password);
+      const admin = dispatch(adminLoginCheck({ username, password }));
+      if(!error){
+        localStorage.setItem("admin", admin);
+        navgate("/admin");
+      }
     } else {
       setErrors(validationErrors);
     }
   };
 
-  const handleRequest = async (username, password) => {
-    try {
-      const admin = await dispatch(adminLoginCheck({ username, password }));
-
-      localStorage.setItem("admin", admin);
-      navgate("/admin");
-    } 
-    catch (error) 
-    {
-      clearForm();
-      console.log(error);
-    }
-  };
-
   const handleLogout = () => {
     localStorage.removeItem("admin");
-    adminState = null;
+    adminState = {};
     clearForm();
-    navgate("/");
   };
 
-  if (adminState){
+  if(adminState){
     return (
       <div>
         <p 
         className={style.adminInput}
         >{formData.username}
         </p>
-        <button 
+        <Link
+        to={'/'} 
         onClick={handleLogout} 
         className={style.sumitButton}
         >
           Logout
-        </button>
+        </Link>
       </div>
     ) 
   }
  else{
   return (
     <>
-      <form 
-      method="POST" 
-      className="dropdown-item" 
-      onSubmit={handleSubmit}
-      >
-        <li className="mb-2">
-          <input
-            className={`form-control form-control-sm ` + style.adminInput}
-            type="text"
-            name="username"
-            placeholder="admin user name"
-            aria-label="admin user name"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
-          {errors.username && (
-            <span 
-            className="error"
-            >
-            {errors.username}
-            </span>
-          )}
-        </li>
-
-        <li className="mb-2">
-          <input
-            className={`form-control form-control-sm ` + style.adminInput}
-            type="password"
-            name="password"
-            placeholder="your password"
-            aria-label="your password"
-            value={formData.password}
-            onInput={handleInputChange}
-          />
-          {errors.password && (<span className="error">{errors.password}</span>)} 
-        </li>
-
-        <li>
-          <button 
-          type="submit" 
-          className={style.sumitButton}
+    <form 
+    method="POST" 
+    className="dropdown-item" 
+    onSubmit={handleSubmit}
+    >
+      <li className="mb-2">
+        <input
+          className={`form-control form-control-sm ` + style.adminInput}
+          type="text"
+          name="username"
+          placeholder="admin user name"
+          aria-label="admin user name"
+          value={formData.username}
+          onChange={handleInputChange}
+        />
+        {errors.username && (
+          <span 
+          className="error"
           >
-          Login
-          </button>
-          {error && <p className="error">{error}</p>}
-        </li>
-      </form>
-    </>
+          {errors.username}
+          </span>
+        )}
+      </li>
+
+      <li className="mb-2">
+        <input
+          className={`form-control form-control-sm ` + style.adminInput}
+          type="password"
+          name="password"
+          placeholder="your password"
+          aria-label="your password"
+          value={formData.password}
+          onChange={handleInputChange}
+        />
+        {errors.password && (<span className="error">{errors.password}</span>)} 
+      </li>
+
+      <li>
+        <button 
+        type="submit" 
+        className={style.sumitButton}
+        >
+        Login
+        </button>
+        {error ? <p className="error">{error}</p> : ''}
+      </li>
+    </form>
+  </>
   );
  } 
 }

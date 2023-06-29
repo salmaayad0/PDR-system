@@ -17,9 +17,6 @@ export default function Patient() {
             + style.formContainer
           }
         >
-          <div className={style.title}>
-            <h2>Patient Search</h2>
-          </div>
           <PatientSearchForm />
         </div>
       </BgImg>

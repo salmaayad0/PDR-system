@@ -22,8 +22,8 @@
 .formInput input[type="date"],
 .formInput input[type="email"],
 .formInput input[type="password"],
-.formInput input[type="tel"],
-.formInput textarea{
+.formInput textarea,
+.formInput select{
     display:block;
     background-color: var(--blue);
     color: var(--orange);
@@ -38,15 +38,15 @@
     margin-bottom: 10px;
 }
 
-.formInput input[type="checkbox"]{
+.formInput input[type="checkbox"],
+.formInput input[type="radio"]{
     transform: scale(2);
 }
 
 .formInput label{
     display: inline-block;
     padding: 5px 10px;
-    margin-bottom: 12px;
-    margin-left: 20px;
+    margin: 12px 20px;
     background-color: var(--blue);
     color: var(--orange);
     border: 1px solid var(--pink);
@@ -57,7 +57,7 @@
     cursor: pointer;
 }
 
-.formInput input[type="checkbox"]::before {
+.formInput input[type="checkbox"]::before{
     content: "";
     display: inline-block;
     position: absolute;
@@ -65,6 +65,17 @@
     height: 12px;
     width: 12px;
     border: 1px solid var(--orange);
+}
+
+.formInput input[type="radio"]::before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    height: 12px;
+    width: 12px;
+    border: 1px solid var(--orange);
+    border-radius: 50%;
 }
 
 .formInput input::placeholder,
@@ -83,7 +94,7 @@
 }
 
 .sumitButton{
-    display: block;
+    display: inline-block;
     font-family: var(--font-three);
     color: var(--purple);
     background-color: var(--blue);

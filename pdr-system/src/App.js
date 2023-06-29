@@ -18,6 +18,7 @@ import History from './pages/History';
 import PatientSearch from './pages/PatientSearch';
 import DocRegister from './pages/DocRegister';
 import PatientRegister from './pages/PatientRegister';
+import Profile from './pages/Profile';
 
 function App() {
   useEffect(() => {
@@ -61,6 +62,7 @@ function App() {
             <Route path='/search' element={<PatientSearch />} />
             <Route path='/addDoctor' element={<DocRegister />} />
             <Route path='/addPatient' element={<PatientRegister />} />
+            <Route path='/profile' element={<Profile />} />
           </Route>
         </Routes>
         </>

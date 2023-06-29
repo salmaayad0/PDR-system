@@ -33,7 +33,6 @@ export const adminLoginSlice = createSlice({
         builder.addCase(adminLoginCheck.fulfilled, (state, action) => {
             state.loading = false;
             state.adminState = action.payload;
-            console.log(action.payload);
         })
 
         builder.addCase(adminLoginCheck.rejected, (state, action) => {
