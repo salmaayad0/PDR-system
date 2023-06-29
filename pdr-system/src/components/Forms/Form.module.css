@@ -83,6 +83,7 @@
 }
 
 .sumitButton{
+    display: block;
     font-family: var(--font-three);
     color: var(--purple);
     background-color: var(--blue);

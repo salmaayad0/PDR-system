@@ -1,6 +1,7 @@
 import React from "react";
 import { BgImg } from "../components/Background/Bg.styles";
 import style from "../components/Forms/Form.module.css";
+import { Link } from "react-router-dom";
 
 export default function Admin() {
   return (
@@ -11,20 +12,20 @@ export default function Admin() {
         data-aos-anchor-easing="ease-in-out"
         data-aos-duration="1500"
         className={
-          `d-flex flex-column justify-content-center ` 
+          `d-flex flex-column justify-content-center w-100 align-items-center ` 
           + style.formContainer
         }
       >
         <div className="text-center">
-          <button type="submit" className={style.sumitButton}>
+          <Link to="/addDoctor" className={style.sumitButton}>
             Add Doctor
-          </button>
+          </Link>
         </div>
 
         <div className="text-center">
-          <button type="submit" className={style.sumitButton}>
+          <Link to="/addPatient" className={style.sumitButton}>
             Add Patient
-          </button>
+          </Link>
         </div>
       </div>
     </BgImg>
