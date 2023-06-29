@@ -26,7 +26,7 @@ class Patients(models.Model):
 
 
 class Sessions(models.Model):
-    number=models.IntegerField()
+    number=models.IntegerField(auto_created=True)
     medicine=models.TextField(max_length=1000)
     medical_analysis=models.TextField(max_length=1000)
     # analysis_image=models.ImageField(upload_to="photos/%y/%m/%d" ,null=True ,blank=True)
@@ -38,9 +38,11 @@ class Sessions(models.Model):
     def __str__(self):
         return (f"session number:{self.number} for patient :{self.pat_name} with doctor:{self.doc_name}")
 
+    class Meta:
+        unique_together = ('pat_name', 'number')
 
 
-
+   
 
 # class Pat_Doc(models.Model):
 #       doc_name=models.ManyToManyField(Doctors)

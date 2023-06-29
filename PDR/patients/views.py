@@ -9,7 +9,8 @@ from rest_framework.permissions import  IsAdminUser,IsAuthenticated,IsAuthentica
 from rest_framework import permissions,authentication
 from rest_framework.decorators import permission_classes
 from django.contrib.auth.decorators import login_required
-from rest_framework import views
+from rest_framework import views,generics
+from .serializer import Patientselizer
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 @login_required
@@ -38,6 +39,28 @@ def get_patient(request,id):
     else:
         return  Response(status=HTTP_404_NOT_FOUND)
     
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def get_all_patient(request):
+    l=[]
+    obj=Patients.objects.all()
+    return Response(data=Patientselizer(obj).data)
+  
+
+
+class UserList(generics.ListCreateAPIView):
+    queryset = Doctors.objects.all()
+    serializer_class = Patientselizer
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = Patientselizer(queryset, many=True)
+        return Response(serializer.data)    
+
+
+
+
+
 
 
 @api_view(['PUT'])
@@ -57,6 +80,8 @@ def update_patient(request,id):
     
 
 
+
+
 class CreateSession(views.APIView):
     serializer_class = AddSessionSerializer
 
@@ -66,6 +91,7 @@ class CreateSession(views.APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+
 
 
 @api_view(['GET'])
@@ -98,14 +124,45 @@ def  UpdateSession(request,id=Sessions.pat_name,number=Sessions.number):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND,data={'message':'id not found'})  
 
-# api_view(['GET'])
-# @permission_classes([permissions.AllowAny])
-# def GetHistory(request,id=Patients.id):
-#     if(id is not None):
-#         data=History.objects.filter(pat_name=id)
-#         pat_name = HistorySerializer(data,many=True)        
-#         # dataserlized=HistorySerializer(data)
-#         return Response(status=HTTP_202_ACCEPTED,data={'data':pat_name.data})
-#     else:
-#         return  Response(status=HTTP_404_NOT_FOUND)    
+    
 
+
+class CreateHistory(views.APIView):
+    serializer_class = AddHistorySerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
+
+
+
+
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def Listhistory(request,id=Patients.id):
+    if(id is not None):
+        data=History.objects.filter(pat_name=id)
+        obj= ListHistorySerializer(data,many=True)        
+
+        return Response(status=HTTP_202_ACCEPTED,data=obj.data)
+    else:
+        return  Response(status=HTTP_404_NOT_FOUND)  \
+        
+
+@api_view(['PUT'])
+@permission_classes([permissions.AllowAny])
+def  UpdateHistory(request,id=Sessions.pat_name):
+    if(len(History.objects.filter(pat_name=id))!=0):
+        updateobject=History.objects.get(pat_name=id)
+        print(updateobject)
+        updateobjectafterupdate=UpdateHistorySerializer(instance=updateobject,data=request.data)
+        print(updateobjectafterupdate)
+        if(updateobjectafterupdate.is_valid()):
+            updateobjectafterupdate.save()
+            return Response(status=status.HTTP_202_ACCEPTED)
+            
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND,data={'message':'id not found'})       

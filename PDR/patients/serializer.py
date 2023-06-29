@@ -30,7 +30,32 @@ class AddSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sessions
         fields = "__all__"
-class HistorySerializer(serializers.ModelSerializer):
+
+
+
+class AddHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model=History
         fields="__all__"         
+
+
+
+class ListHistorySerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        
+        model=History
+        fields="__all__"     
+                      
+
+
+
+
+class UpdateHistorySerializer(serializers.ModelSerializer):
+    pat_name = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        
+        model=History
+        fields=("Diabetes","Cancer","Heart_Disease","High_Blood_Pressure","High_Cholesterol","pat_name")                      
+
+     
