@@ -8,6 +8,7 @@ from django.shortcuts import  get_object_or_404
 from rest_framework.permissions import  IsAdminUser,IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework import permissions,authentication
 from rest_framework.decorators import permission_classes
+from patients.models import Patients,Sessions
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_doctor(req,id):
@@ -60,3 +61,21 @@ class registrationView(APIView):
             return Response({
                 'user_data': registrationSerializer.errors,
             }, status=HTTP_400_BAD_REQUEST)     
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
