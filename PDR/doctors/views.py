@@ -9,6 +9,7 @@ from rest_framework.permissions import  IsAdminUser,IsAuthenticated,IsAuthentica
 from rest_framework import permissions,authentication
 from rest_framework.decorators import permission_classes
 from patients.models import Patients,Sessions
+from rest_framework import generics
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_doctor(req,id):
@@ -41,8 +42,34 @@ def update_doctor(request,id):
     else:
         return  Response(status=HTTP_404_NOT_FOUND,data={'message':'id not found'})    
     
- 
-        
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def get_all_doctors(request):
+    l=[]
+    obj=Doctors.objects.all()
+    print(obj)
+    return Response(data=Doctorselizer(obj).data) 
+
+
+
+
+class UserList(generics.ListCreateAPIView):
+    queryset = Doctors.objects.all()
+    serializer_class = Doctorselizer
+
+    def list(self, request):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        queryset = self.get_queryset()
+        serializer = Doctorselizer(queryset, many=True)
+        return Response(serializer.data)    
+
+
+
+
+
+
+
+
 class registrationView(APIView):
 
     """"API endpoint for doctor Registration"""

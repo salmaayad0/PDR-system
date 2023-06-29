@@ -30,7 +30,20 @@ class AddSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sessions
         fields = "__all__"
-class HistorySerializer(serializers.ModelSerializer):
+
+
+
+class AddHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model=History
         fields="__all__"         
+
+
+
+class ListHistorySerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        
+        model=History
+        fields="__all__"     
+                      
