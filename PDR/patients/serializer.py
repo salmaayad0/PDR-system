@@ -47,3 +47,15 @@ class ListHistorySerializer(serializers.ModelSerializer):
         model=History
         fields="__all__"     
                       
+
+
+
+
+class UpdateHistorySerializer(serializers.ModelSerializer):
+    pat_name = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        
+        model=History
+        fields=("Diabetes","Cancer","Heart_Disease","High_Blood_Pressure","High_Cholesterol","pat_name")                      
+
+     

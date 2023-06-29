@@ -149,4 +149,20 @@ def Listhistory(request,id=Patients.id):
 
         return Response(status=HTTP_202_ACCEPTED,data=obj.data)
     else:
-        return  Response(status=HTTP_404_NOT_FOUND)  
+        return  Response(status=HTTP_404_NOT_FOUND)  \
+        
+
+@api_view(['PUT'])
+@permission_classes([permissions.AllowAny])
+def  UpdateHistory(request,id=Sessions.pat_name):
+    if(len(History.objects.filter(pat_name=id))!=0):
+        updateobject=History.objects.get(pat_name=id)
+        print(updateobject)
+        updateobjectafterupdate=UpdateHistorySerializer(instance=updateobject,data=request.data)
+        print(updateobjectafterupdate)
+        if(updateobjectafterupdate.is_valid()):
+            updateobjectafterupdate.save()
+            return Response(status=status.HTTP_202_ACCEPTED)
+            
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND,data={'message':'id not found'})       
