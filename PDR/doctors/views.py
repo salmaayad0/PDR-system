@@ -40,15 +40,7 @@ def update_doctor(request,id):
             updateobjectafterupdate.save()
             return Response(status=HTTP_202_ACCEPTED,data=updateobjectafterupdate.data)
     else:
-        return  Response(status=HTTP_404_NOT_FOUND,data={'message':'id not found'})    
-    
-@api_view(['GET'])
-@permission_classes([permissions.AllowAny])
-def get_all_doctors(request):
-    l=[]
-    obj=Doctors.objects.all()
-    print(obj)
-    return Response(data=Doctorselizer(obj).data) 
+        return  Response(status=HTTP_404_NOT_FOUND,data={'message':'id not found'})   
 
 
 
@@ -58,7 +50,6 @@ class UserList(generics.ListCreateAPIView):
     serializer_class = Doctorselizer
 
     def list(self, request):
-        # Note the use of `get_queryset()` instead of `self.queryset`
         queryset = self.get_queryset()
         serializer = Doctorselizer(queryset, many=True)
         return Response(serializer.data)    
@@ -76,15 +67,21 @@ class registrationView(APIView):
 
     permission_classes = []
     def post(self, request, format=None):
-        registrationSerializer = Doctorselizer(
-            data=request.data.get('user_data'))
+        # registrationSerializer = RegDoctorselizer(
+        #     data=request.data.get('user_data'))
+        registrationSerializer = RegDoctorselizer(
+            data=request.data)
+        print(request.data)
+        print(registrationSerializer)
         checkregistration = registrationSerializer.is_valid()
+        print(checkregistration)
         if checkregistration :
-            doctor = registrationSerializer.save()
+            registrationSerializer.save()
             return Response({
                 'user_data': registrationSerializer.data,
             }, status=HTTP_201_CREATED)
         else:
+            print(registrationSerializer.errors)
             return Response({
                 'user_data': registrationSerializer.errors,
             }, status=HTTP_400_BAD_REQUEST)     

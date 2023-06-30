@@ -1,5 +1,7 @@
 from rest_framework.response import Response
 from  rest_framework.decorators import  api_view
+from rest_framework.views import APIView
+
 from .models import *
 from .serializer import *
 from rest_framework import status
@@ -38,7 +40,21 @@ def get_patient(request,id):
         return Response(data=Patientselizer(obj).data)
     else:
         return  Response(status=HTTP_404_NOT_FOUND)
+
+
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def get_patient_by_phone(request,phone_number):
+    obj=Patients.objects.get(phone_number=phone_number)
+    if(obj is not None):
+        return Response(data=Patientselizer(obj).data)
+    else:
+        return  Response(status=HTTP_404_NOT_FOUND)
     
+
+
+
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
 def get_all_patient(request):
@@ -100,8 +116,9 @@ def ListSession(request,id=Patients.id):
     if(id is not None):
         data=Sessions.objects.filter(pat_name=id)
         number = ListSessionSerializer(data,many=True)        
+        return Response(status=HTTP_202_ACCEPTED,data=number.data)
 
-        return Response(status=HTTP_202_ACCEPTED,data={'data':number.data})
+        # return Response(status=HTTP_202_ACCEPTED,data={'data':number.data})
     else:
         return  Response(status=HTTP_404_NOT_FOUND)    
 
@@ -166,3 +183,30 @@ def  UpdateHistory(request,id=Sessions.pat_name):
             
     else:
         return Response(status=status.HTTP_404_NOT_FOUND,data={'message':'id not found'})       
+    
+
+
+
+
+class registrationView(APIView):
+
+    """"API endpoint for doctor Registration"""
+
+    permission_classes = []
+    def post(self, request, format=None):
+        registrationSerializer = RegPatientselizer(
+            data=request.data)
+        print(request.data)
+        print(registrationSerializer)
+        checkregistration = registrationSerializer.is_valid()
+        print(checkregistration)
+        if checkregistration :
+            registrationSerializer.save()
+            return Response({
+                'user_data': registrationSerializer.data,
+            }, status=HTTP_201_CREATED)
+        else:
+            print(registrationSerializer.errors)
+            return Response({
+                'user_data': registrationSerializer.errors,
+            }, status=HTTP_400_BAD_REQUEST)     
