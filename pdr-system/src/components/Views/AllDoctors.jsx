@@ -1,34 +1,17 @@
 import React from 'react'
 
-export default function AllDoctors() {
+export default function AllDoctors(props) {
+  const {id, name, email, phone_number, major, address} = props.doctor;
+
   return (
     <>
-    <tbody>
       <tr>
-        <td>{}</td>
-        <td>{}</td>
-        <td>{}</td>
-        <th>{}</th>
-        <td>{}</td>
-        <td>{}</td>
-        <td>
-          <Link 
-          to={''} 
-          onClick={''}
-          className="btn btn-dark btn-sm">
-            Update
-          </Link>
-        </td>
-        <td>
-          <Link 
-          to={''} 
-          onClick={''} 
-          className="btn btn-dark btn-sm">
-            Update
-          </Link>
-        </td>
+      <td>{name}</td>
+        <td>{major}</td>
+        <th>{phone_number}</th>
+        <td>{email}</td>
+        <td>{address}</td>
       </tr>
-    </tbody>
   </>
   )
 }

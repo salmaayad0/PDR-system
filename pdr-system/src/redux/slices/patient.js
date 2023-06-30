@@ -3,9 +3,11 @@ import axios from 'axios';
 
 const initialState = {
     loading: false,
-    error: '',
+    error: null,
     patient: null,
-    sessions: null
+    patients:[],
+    sessions: [],
+    history: []
 }
 
 export const patientSearch = createAsyncThunk('patientSearch', async (phone, thunk) => {
@@ -28,6 +30,26 @@ export const patientSessions = createAsyncThunk('patientSessions', async (id, th
     }
 })
 
+export const patientHistory = createAsyncThunk('patientHistory', async (id, thunk) => {
+    const { rejectWithValue } = thunk;
+    try {
+        const { data } = await axios.get(`http://127.0.0.1:8000/patients/GetHistory/${id}`);
+        return data
+    } catch (error) {
+        return rejectWithValue('this patient has no history')
+    }
+})
+
+export const getAllPatients = createAsyncThunk('getAllPatients', async (_, thunk) => {
+    const { rejectWithValue } = thunk;
+    try {
+        const { data } = await axios.get(`http://127.0.0.1:8000/patients/allpatients/`);
+        return data
+    } catch (error) {
+        return rejectWithValue('no patients added yet')
+    }
+})
+
 export const patientSlice = createSlice({
     name: 'patient',
     initialState,
@@ -37,7 +59,7 @@ export const patientSlice = createSlice({
         //search
         builder.addCase(patientSearch.pending, state => {
             state.loading = true;
-            state.error = "";
+            state.error = null
         })
 
         builder.addCase(patientSearch.fulfilled, (state, action) => {
@@ -47,7 +69,7 @@ export const patientSlice = createSlice({
 
         builder.addCase(patientSearch.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload;   
+            state.error = action.payload;  
         })
 
         //get all sessions
@@ -59,10 +81,41 @@ export const patientSlice = createSlice({
         builder.addCase(patientSessions.fulfilled, (state, action) => {
             state.loading = false;
             state.sessions = action.payload;
-            console.log(state.sessions);
         })
 
         builder.addCase(patientSessions.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;   
+        })
+
+        //get history
+        builder.addCase(patientHistory.pending, state => {
+            state.loading = true;
+            state.error = "";
+        })
+
+        builder.addCase(patientHistory.fulfilled, (state, action) => {
+            state.loading = false;
+            state.history = action.payload;
+        })
+
+        builder.addCase(patientHistory.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;   
+        })
+
+        //get all patients
+        builder.addCase(getAllPatients.pending, state => {
+            state.loading = true;
+            state.error = "";
+        })
+
+        builder.addCase(getAllPatients.fulfilled, (state, action) => {
+            state.loading = false;
+            state.patients = action.payload;
+        })
+
+        builder.addCase(getAllPatients.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;   
         })

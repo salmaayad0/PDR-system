@@ -12,7 +12,7 @@ export default function DoctorForm() {
 
   const navgate = useNavigate();
 
-  const { loading, error, patient } = useSelector(
+  let { loading, error, patient } = useSelector(
     (state) => state.patientSlice
   );
 
@@ -30,18 +30,18 @@ export default function DoctorForm() {
     if (error) {
       navgate("/addPatient");
       clearForm();
+      patient = null;
     } else {
       console.log(patient);
     }
+
   };
 
   return (
     <>
-      {patient ? (
-        <Profile patient={patient} />
-      ) : (
+      {patient ? (<Profile patient={patient} /> ) : (
         <>
-          <div className={style.title}>
+        <div className={style.title}>
             <h2>Patient Search</h2>
           </div>
           <form method="GET" onSubmit={handleSubmit}>
@@ -58,10 +58,9 @@ export default function DoctorForm() {
             </div>
 
             <div className="text-center">
-              <button type="submit" className={style.sumitButton}>
+            <button type="submit" className={style.sumitButton}>
                 Search
               </button>
-
               {loading && (
                 <div className="d-flex justify-content-center align-items-center">
                   <div className="spinner-border" role="status">
@@ -71,8 +70,8 @@ export default function DoctorForm() {
               )}
             </div>
           </form>
-        </>
-      )}
+          </>
+     )}
     </>
   );
 }

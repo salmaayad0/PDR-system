@@ -1,0 +1,21 @@
+.sideBar {
+  height: 100vh;
+  padding: 0;
+}
+
+.sideBar li {
+  padding: 5px 10px;
+  list-style: none;
+}
+
+.title{
+    font-family: var(--font-two);
+    font-weight: bold;
+    padding: 3px 10px;
+    margin: 0px;
+}
+
+.text{
+  font-family: var(--font-one);
+  font-size: 14px;
+}

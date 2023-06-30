@@ -8,7 +8,8 @@ export default function Admin() {
   return (
     <section className="main">
     <BgImg>
-      <div
+
+    <div
         data-aos="fade-down"
         data-aos-anchor-easing="ease-in-out"
         data-aos-duration="1000"
@@ -20,7 +21,7 @@ export default function Admin() {
         <TabAdmin />
       </div>
 
-      <div
+    <div
         data-aos="fade-down"
         data-aos-anchor-easing="ease-in-out"
         data-aos-duration="1000"
@@ -29,9 +30,9 @@ export default function Admin() {
           + style.formContainer
         }
       >
-        <p className={`text-center ` + style.title}>Search Patient</p>
         <PatientSearchForm />
       </div>
+
     </BgImg>
   </section>
   )

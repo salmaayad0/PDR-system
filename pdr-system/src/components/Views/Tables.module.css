@@ -1,0 +1,39 @@
+.title{
+    text-align: center;
+    font-family: var(--font-two);
+    font-weight: bolder;
+    color: var(--purple);
+    padding: 3px 10px;
+    margin: 0px;
+    position: relative;
+    z-index: 3;
+}
+
+.table{
+    text-align: center;
+    font-family: var(--font-one);
+    font-size: 14px;
+    position: relative;
+    z-index: 3;
+}
+
+.sumitButton{
+    display: inline-block;
+    font-family: var(--font-three);
+    color: var(--purple);
+    background-color: var(--blue);
+    border: solid 1px var(--yellow);
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin: 3px;
+    transition: all 1s;
+}
+  
+.sumitButton:hover{
+    color: var(--orange);
+    background-color: var(--purple);
+    border-color: var(--pink);
+    box-shadow: 0 0 2px #7480bd;
+}
