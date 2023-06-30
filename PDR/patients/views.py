@@ -161,12 +161,12 @@ class CreateHistory(views.APIView):
 @permission_classes([permissions.AllowAny])
 def Listhistory(request,id=Patients.id):
     if(id is not None):
-        data=History.objects.filter(pat_name=id)
-        obj= ListHistorySerializer(data,many=True)        
+        data1=History.objects.get(pat_name=id)
+        # obj= ListHistorySerializer(data,many=True)        
 
-        return Response(status=HTTP_202_ACCEPTED,data=obj.data)
+        return Response(status=HTTP_202_ACCEPTED,data=ListHistorySerializer(data1).data)
     else:
-        return  Response(status=HTTP_404_NOT_FOUND)  \
+        return  Response(status=HTTP_404_NOT_FOUND)  
         
 
 @api_view(['PUT'])
@@ -192,7 +192,8 @@ class registrationView(APIView):
 
     """"API endpoint for doctor Registration"""
 
-    permission_classes = []
+    permission_classes = [permissions.AllowAny]
+    print(permission_classes)
     def post(self, request, format=None):
         registrationSerializer = RegPatientselizer(
             data=request.data)
@@ -202,9 +203,7 @@ class registrationView(APIView):
         print(checkregistration)
         if checkregistration :
             registrationSerializer.save()
-            return Response({
-                'user_data': registrationSerializer.data,
-            }, status=HTTP_201_CREATED)
+            return Response(registrationSerializer.data, status=HTTP_201_CREATED)
         else:
             print(registrationSerializer.errors)
             return Response({
