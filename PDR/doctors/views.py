@@ -67,8 +67,6 @@ class registrationView(APIView):
 
     permission_classes = []
     def post(self, request, format=None):
-        # registrationSerializer = RegDoctorselizer(
-        #     data=request.data.get('user_data'))
         registrationSerializer = RegDoctorselizer(
             data=request.data)
         print(request.data)
@@ -77,9 +75,7 @@ class registrationView(APIView):
         print(checkregistration)
         if checkregistration :
             registrationSerializer.save()
-            return Response({
-                'user_data': registrationSerializer.data,
-            }, status=HTTP_201_CREATED)
+            return Response(registrationSerializer.data, status=HTTP_201_CREATED)
         else:
             print(registrationSerializer.errors)
             return Response({

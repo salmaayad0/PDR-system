@@ -41,7 +41,8 @@ class AddHistorySerializer(serializers.ModelSerializer):
 
 
 class ListHistorySerializer(serializers.ModelSerializer):
-  
+    pat_name = serializers.PrimaryKeyRelatedField( read_only=True)
+
     class Meta:
         
         model=History
