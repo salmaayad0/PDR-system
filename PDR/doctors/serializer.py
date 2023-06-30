@@ -8,11 +8,16 @@ class Doctorselizer(serializers.ModelSerializer):
         fields ='__all__'
 
 
-    def validate_username(self, username):
-        username_exists=Doctors.objects.filter(username__iexact=username)
-        if username_exists:
-            raise serializers.ValidationError({'username':'This username already exists'})
-        return username
+class RegDoctorselizer(serializers.ModelSerializer):
+    class Meta:
+        model=Doctors
+        fields =("name","email","phone_number","major","address","password")
+
+    def validate_email(self, email):
+        email_exists=Doctors.objects.filter(email__iexact=email)
+        if email_exists:
+            raise serializers.ValidationError({'email':'This emailalready exists'})
+        return email
 
         
     def validate_password(self, password):
@@ -22,12 +27,6 @@ class Doctorselizer(serializers.ModelSerializer):
 
  
 
-    def validate(self, data):
-        password=data.get('password')
-        confirm_password=data.pop('confirm_password')
-        if password != confirm_password:
-            raise serializers.ValidationError({'password':'password must match'})
-        return data
 
 
     def create(self, validated_data):
@@ -35,15 +34,11 @@ class Doctorselizer(serializers.ModelSerializer):
                 name=validated_data['name'],
                 email=validated_data['email'],
                 password=validated_data['password'],
-                confirm_password=validated_data['confirm_password'],
                 major=validated_data['major'],
                 address=validated_data['address'],
-                phone_number=validated_data['phone_number'],
-
-                status=False
+                phone_number=validated_data['phone_number']
             )
     
-        user.set_password(validated_data['password'])
         user.save()
      
         return user   

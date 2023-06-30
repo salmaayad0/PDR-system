@@ -58,4 +58,43 @@ class UpdateHistorySerializer(serializers.ModelSerializer):
         model=History
         fields=("Diabetes","Cancer","Heart_Disease","High_Blood_Pressure","High_Cholesterol","pat_name")                      
 
+
+
+
+
+class RegPatientselizer(serializers.ModelSerializer):
+    class Meta:
+        model=Patients
+        fields =("name","email","age","phone_number","gender","address","password")
+
+    def validate_email(self, email):
+        email_exists=Patients.objects.filter(email__iexact=email)
+        if email_exists:
+            raise serializers.ValidationError({'email':'This emailalready exists'})
+        return email
+
+        
+    def validate_password(self, password):
+        if password.isdigit():
+            raise serializers.ValidationError('Your password should contain letters!')
+        return password  
+
+ 
+
+
+
+    def create(self, validated_data):
+        user= Patients.objects.create(
+                name=validated_data['name'],
+                email=validated_data['email'],
+                password=validated_data['password'],
+                age=validated_data['age'],
+                address=validated_data['address'],
+                phone_number=validated_data['phone_number'],
+                gender=validated_data['gender']
+
+            )
+    
+        user.save()
      
+        return user   
