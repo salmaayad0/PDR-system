@@ -102,7 +102,18 @@ def update_patient(request,id):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND,data={'message':'id not found'})  
     
+# class CreateSession(views.APIView):
+#     authentication_classes=([TokenAuthentication])
+#     permission_classes = ([permissions.AllowAny])
+    
+#     serializer_class = AddSessionSerializer
 
+#     def post(self, request,id):
+#         serializer = self.serializer_class(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
 
 
@@ -113,6 +124,7 @@ class CreateSession(views.APIView):
     serializer_class = AddSessionSerializer
 
     def post(self, request):
+        # data1=History.objects.get(pat_name=id)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
