@@ -9,12 +9,13 @@ from rest_framework.status import *
 from django.shortcuts import  get_object_or_404
 from rest_framework.permissions import  IsAdminUser,IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework import permissions,authentication
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes,authentication_classes
 from django.contrib.auth.decorators import login_required
 from rest_framework import views,generics
 from .serializer import Patientselizer
+from rest_framework.authentication import TokenAuthentication
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAdminUser])
 @login_required
 def delete_patient(req,id):
     data=get_object_or_404(Patients,id=id)
@@ -24,6 +25,7 @@ def delete_patient(req,id):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def search_patient(request,phone_number):
     objcatgory=Patients.objects.get(phone_number=phone_number)
@@ -33,6 +35,7 @@ def search_patient(request,phone_number):
         return  Response(status=HTTP_404_NOT_FOUND)
     
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def get_patient(request,id):
     obj=Patients.objects.get(id=id)
@@ -44,6 +47,7 @@ def get_patient(request,id):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def get_patient_by_phone(request,phone_number):
     obj=Patients.objects.get(phone_number=phone_number)
@@ -56,6 +60,7 @@ def get_patient_by_phone(request,phone_number):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def get_all_patient(request):
     l=[]
@@ -65,6 +70,8 @@ def get_all_patient(request):
 
 
 class UserList(generics.ListCreateAPIView):
+    authentication_classes=([TokenAuthentication])
+    permission_classes = ([permissions.AllowAny])
     queryset = Doctors.objects.all()
     serializer_class = Patientselizer
 
@@ -80,6 +87,7 @@ class UserList(generics.ListCreateAPIView):
 
 
 @api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def update_patient(request,id):
     if(len(Patients.objects.filter(id=id))!=0):
@@ -99,6 +107,9 @@ def update_patient(request,id):
 
 
 class CreateSession(views.APIView):
+    authentication_classes=([TokenAuthentication])
+    permission_classes = ([permissions.AllowAny])
+    
     serializer_class = AddSessionSerializer
 
     def post(self, request):
@@ -111,6 +122,7 @@ class CreateSession(views.APIView):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def ListSession(request,id=Patients.id):
     if(id is not None):
@@ -128,6 +140,7 @@ def ListSession(request,id=Patients.id):
 
 @api_view(['PUT'])
 @permission_classes([permissions.AllowAny])
+@authentication_classes([TokenAuthentication])
 def  UpdateSession(request,id=Sessions.pat_name,number=Sessions.number):
     if(len(Sessions.objects.filter(pat_name=id))!=0):
         updateobject=Sessions.objects.get(pat_name=id,number=number)
@@ -145,6 +158,8 @@ def  UpdateSession(request,id=Sessions.pat_name,number=Sessions.number):
 
 
 class CreateHistory(views.APIView):
+    authentication_classes=([TokenAuthentication])
+    permission_classes = ([permissions.AllowAny])
     serializer_class = AddHistorySerializer
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -158,6 +173,7 @@ class CreateHistory(views.APIView):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def Listhistory(request,id=Patients.id):
     if(id is not None):
@@ -170,6 +186,7 @@ def Listhistory(request,id=Patients.id):
         
 
 @api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
 def  UpdateHistory(request,id=Sessions.pat_name):
     if(len(History.objects.filter(pat_name=id))!=0):
@@ -189,10 +206,9 @@ def  UpdateHistory(request,id=Sessions.pat_name):
 
 
 class registrationView(APIView):
-
-    """"API endpoint for doctor Registration"""
-
-    permission_classes = [permissions.AllowAny]
+    
+    authentication_classes=([TokenAuthentication])
+    permission_classes = ([permissions.AllowAny])
     print(permission_classes)
     def post(self, request, format=None):
         registrationSerializer = RegPatientselizer(
@@ -209,3 +225,19 @@ class registrationView(APIView):
             return Response({
                 'user_data': registrationSerializer.errors,
             }, status=HTTP_400_BAD_REQUEST)     
+
+
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([permissions.AllowAny])
+def trainerlogin(request):
+	if request.method=='POST':
+		email=request.POST['email']
+		password=request.POST['password']
+		trainer=Patients.objects.filter(email=email,password=password)
+        
+		if trainer:
+			return Response(LogonPatientselizer(trainer).data)
+		else:
+          	 return Response(status=HTTP_201_CREATED)
