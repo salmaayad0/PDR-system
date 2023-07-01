@@ -60,6 +60,15 @@ export default function TabAdmin() {
                 </Link>
               </li>
 
+              <li className="nav-item">
+                <Link
+                  className={style.sumitButton + ` nav-link `}
+                  to={"/admin"}
+                >
+                  Search Patient
+                </Link>
+              </li>
+
             </ul>
           </div>
         </div>

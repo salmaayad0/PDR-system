@@ -22,7 +22,7 @@ export default function Admin() {
       </div>
 
     <div
-        data-aos="fade-down"
+        data-aos="fade-up"
         data-aos-anchor-easing="ease-in-out"
         data-aos-duration="1000"
         className={

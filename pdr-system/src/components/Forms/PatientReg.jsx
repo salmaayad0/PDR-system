@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import style from "./Form.module.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { addPatient } from '../../redux/slices/patient';
+import { useNavigate } from 'react-router-dom';
 
 export default function PatientReg() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        age:"",
         phone_number: "",
         gender: "",
         address: "",
@@ -12,6 +16,12 @@ export default function PatientReg() {
     });
 
     const [errors, setErrors] = useState({});
+
+    const dispatch = useDispatch();
+
+    const { error } = useSelector(state => state.patientSlice)
+
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -28,6 +38,11 @@ export default function PatientReg() {
     
         if (!data.password) errors.password = "Password is required";
         else if (data.password.length < 2) errors.password = "Wrong Password";
+
+        if (!data.age) errors.age = "age is required";
+        else if (data.age < 0) errors.age = "age invalid";
+
+        if (!data.address) errors.address = "address is required";
 
         if (!data.email) errors.email = "email is required";
         else if (!mailReg.test(data.email)) errors.email = "email is invalid";
@@ -48,7 +63,8 @@ export default function PatientReg() {
         if (Object.keys(validationErrors).length === 0) {
           // submit form data
           // send data to backend
-          console.log('done');
+          dispatch(addPatient(formData));
+          if(!error) navigate('/allpatients');
         } else {
           setErrors(validationErrors);
         }
@@ -72,6 +88,20 @@ export default function PatientReg() {
             required
           />
           { errors.name && <span className="error">{errors.name}</span>}
+        </div>
+
+        <div className={`mb-2 ` + style.formInput}>
+          <input
+            className='form-control form-control-sm '
+            type="number"
+            name="age"
+            placeholder="age"
+            aria-label="age"
+            value={formData.age}
+            onChange={handleInputChange}
+            required
+          />
+          { errors.age && <span className="error">{errors.age}</span>}
         </div>
 
         <div className={`mb-2 ` + style.formInput}>
@@ -130,6 +160,7 @@ export default function PatientReg() {
             aria-label="address"
             onChange={handleInputChange}
             value={formData.address}
+            required
           />
         </div>
 
@@ -151,7 +182,7 @@ export default function PatientReg() {
           <button type="submit" className={style.sumitButton}>
             Login
           </button>
-        { <span className="error">{}</span>}
+        { error && <span className="error text-danger">{error}</span>}
         </div>
       </form>
     </>

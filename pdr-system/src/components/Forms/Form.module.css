@@ -22,6 +22,7 @@
 .formInput input[type="date"],
 .formInput input[type="email"],
 .formInput input[type="password"],
+.formInput input[type="number"],
 .formInput textarea,
 .formInput select{
     display:block;

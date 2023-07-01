@@ -17,6 +17,16 @@ export const getAllDoctors = createAsyncThunk('getAllDoctors', async (_, thunk) 
     }
 })
 
+export const addDoctor = createAsyncThunk('addDoctor', async (docObj, thunk) => {
+    const { rejectWithValue } = thunk;
+    try {
+        const { data } = await axios.post('http://127.0.0.1:8000/doctors/registration/', docObj);
+        return data
+    } catch (error) {
+        return rejectWithValue('There is an ERROR!')
+    }
+})
+
 
 export const doctorSlice = createSlice({
     name: 'doctor',
@@ -38,6 +48,23 @@ export const doctorSlice = createSlice({
         builder.addCase(getAllDoctors.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;  
+        })
+
+        //add patient
+        builder.addCase(addDoctor.pending, state => {
+            state.loading = true;
+            state.error = "";
+        })
+
+        builder.addCase(addDoctor.fulfilled, (state, action) => {
+            state.loading = false;
+            state.doctors.push(action.payload);
+            console.log(state.doctors);
+        })
+
+        builder.addCase(addDoctor.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;   
         })
     }
 

@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import style from "./Form.module.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { addDoctor } from '../../redux/slices/doctor';
+import { useNavigate } from 'react-router-dom';
 
 export default function DocReg() {
     const [formData, setFormData] = useState({
@@ -9,10 +12,15 @@ export default function DocReg() {
         major: "",
         address: "",
         password: "",
-        confirm_password: "",
     });
 
     const [errors, setErrors] = useState({});
+
+    const dispatch = useDispatch();
+
+    const { error } = useSelector( state => state.doctorSlice )
+
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -30,10 +38,6 @@ export default function DocReg() {
         if (!data.password) errors.password = "Password is required";
         else if (data.password.length < 2) errors.password = "Wrong Password";
 
-        if (!data.confirm_password) errors.confirm_password = "confirm password";
-        else if (data.confirm_password !== data.password) 
-        errors.confirm_password = "confirm Password has to match password";
-
         if (!data.email) errors.email = "email is required";
         else if (!mailReg.test(data.email)) errors.email = "email is invalid";
 
@@ -43,6 +47,8 @@ export default function DocReg() {
         errors.phone_number = "phone number is invalid";
 
         if(!data.major) errors.major = "major is required";
+
+        if(!data.address) errors.address = "address is required";
     
         return errors;
     };
@@ -53,7 +59,8 @@ export default function DocReg() {
         if (Object.keys(validationErrors).length === 0) {
           // submit form data
           // send data to backend
-          console.log('done');
+          dispatch(addDoctor(formData));
+          if(!error) navigate('/alldoctors');
         } else {
           setErrors(validationErrors);
         }
@@ -125,6 +132,8 @@ export default function DocReg() {
            <option value="Anesthesiology">Anesthesiology</option>
            <option value="Family medicine">Family medicine</option>
            <option value="Pediatrics">Pediatrics</option>
+           <option value="Dentist">Dentist</option>
+           <option value="Pharmasist">Pharmasist</option>
          </select>
           { errors.major && <span className="error">{errors.major}</span>}
         </div>
@@ -138,7 +147,9 @@ export default function DocReg() {
             aria-label="address"
             onChange={handleInputChange}
             value={formData.address}
+            required
           />
+          { errors.address && <span className="error">{errors.address}</span>}
         </div>
 
         <div className={`mb-2 ` + style.formInput}>
@@ -155,25 +166,11 @@ export default function DocReg() {
           {errors.password && (<span className="error">{errors.password}</span>)} 
         </div>
 
-        <div className={`mb-2 ` + style.formInput}>
-          <input
-            className='form-control form-control-sm '
-            type="password"
-            name="confirm_password"
-            placeholder="confirm password"
-            aria-label="confirm password"
-            onChange={handleInputChange}
-            value={formData.confirm_password}
-            required
-          />
-          {errors.confirm_password && (<span className="error">{errors.confirm_password}</span>)} 
-        </div>
-
         <div className="text-center">
           <button type="submit" className={style.sumitButton}>
             Login
           </button>
-        { <span className="error">{}</span>}
+        {error && <span className="error text-danger">{error}</span>}
         </div>
       </form>
     </>
