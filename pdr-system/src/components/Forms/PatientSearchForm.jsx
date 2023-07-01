@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { patientSearch } from "../../redux/slices/patient";
 import Profile from "../../pages/Profile";
 
-export default function DoctorForm() {
+export default function PatientSearchForm() {
   const [phone_number, setPhone] = useState(0);
 
   const dispatch = useDispatch();
@@ -30,10 +30,13 @@ export default function DoctorForm() {
     if (error) {
       navgate("/addPatient");
       clearForm();
-      patient = null;
-    } else {
-      console.log(patient);
-    }
+    } 
+    // else {
+    //   console.log(patient);
+    //   navgate("/profile",{
+    //     patient: patient
+    //   })
+    // }
 
   };
 
@@ -44,7 +47,10 @@ export default function DoctorForm() {
         <div className={style.title}>
             <h2>Patient Search</h2>
           </div>
-          <form method="GET" onSubmit={handleSubmit}>
+          <form 
+          method="GET" 
+          onSubmit={handleSubmit}
+          >
             <div className={`mb-2 ` + style.formInput}>
               <input
                 className="form-control form-control-sm "
@@ -58,7 +64,10 @@ export default function DoctorForm() {
             </div>
 
             <div className="text-center">
-            <button type="submit" className={style.sumitButton}>
+            <button 
+            type="submit" 
+            className={style.sumitButton}
+            >
                 Search
               </button>
               {loading && (

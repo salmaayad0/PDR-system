@@ -4,7 +4,6 @@ import axios from 'axios';
 const initialState = {
     loading: false,
     error: null,
-    patient: null,
     sessions: [],
 }
 
@@ -17,6 +16,17 @@ export const patientSessions = createAsyncThunk('patientSessions', async (id, th
         return rejectWithValue('this patient has no sessions')
     }
 })
+
+export const addSession = createAsyncThunk('addSession', async (sessionObj, thunk) => {
+    const { rejectWithValue } = thunk;
+    try {
+        const { data } = await axios.post(`http://127.0.0.1:8000/patients/addsession/`, sessionObj);
+        return data
+    } catch (error) {
+        return rejectWithValue('this patient has no history')
+    }
+})
+
 
 export const sessionSlice = createSlice({
     name: 'session',
@@ -36,6 +46,22 @@ export const sessionSlice = createSlice({
         })
 
         builder.addCase(patientSessions.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;   
+        })
+
+        //add session
+        builder.addCase(addSession.pending, state => {
+            state.loading = true;
+            state.error = "";
+        })
+
+        builder.addCase(addSession.fulfilled, (state, action) => {
+            state.loading = false;
+            state.sessions.push(action.payload);
+        })
+
+        builder.addCase(addSession.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;   
         })

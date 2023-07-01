@@ -4,7 +4,8 @@ import axios from 'axios';
 const initialState = {
     loading: false,
     error: null,
-    doctors:[]
+    doctors:[],
+    doctor: null
 }
 
 export const getAllDoctors = createAsyncThunk('getAllDoctors', async (_, thunk) => {
@@ -24,6 +25,16 @@ export const addDoctor = createAsyncThunk('addDoctor', async (docObj, thunk) => 
         return data
     } catch (error) {
         return rejectWithValue('There is an ERROR!')
+    }
+})
+
+export const getOneDoctor = createAsyncThunk('getOneDoctor', async (id, thunk) => {
+    const { rejectWithValue } = thunk;
+    try {
+        const { data } = await axios.get(`http://127.0.0.1:8000/doctors/GetDoctor/${id}`);
+        return data
+    } catch (error) {
+        return rejectWithValue('There is no such a doctor')
     }
 })
 
@@ -50,7 +61,7 @@ export const doctorSlice = createSlice({
             state.error = action.payload;  
         })
 
-        //add patient
+        //add doctor
         builder.addCase(addDoctor.pending, state => {
             state.loading = true;
             state.error = "";
@@ -59,10 +70,25 @@ export const doctorSlice = createSlice({
         builder.addCase(addDoctor.fulfilled, (state, action) => {
             state.loading = false;
             state.doctors.push(action.payload);
-            console.log(state.doctors);
         })
 
         builder.addCase(addDoctor.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;   
+        })
+
+        //get doctor
+        builder.addCase(getOneDoctor.pending, state => {
+            state.loading = true;
+            state.error = "";
+        })
+
+        builder.addCase(getOneDoctor.fulfilled, (state, action) => {
+            state.loading = false;
+            state.doctor = action.payload;
+        })
+
+        builder.addCase(getOneDoctor.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;   
         })

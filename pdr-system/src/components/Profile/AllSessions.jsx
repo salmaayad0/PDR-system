@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import OneSession from "./OneSession";
 import style from "./Profile.module.css";
 
-export default function AllSessions() {
+export default function AllSessions(props) {
+  const patientId = props.patientId;
   const { error, loading, sessions } = useSelector(
     (state) => state.sessionSlice
   );
@@ -27,15 +28,22 @@ export default function AllSessions() {
           <thead>
             <tr>
               <th className={style.text}>id</th>
+              <th className={style.text}>Date</th>
               <th className={style.text}>Diagnosis</th>
               <th className={style.text}>Medicien</th>
               <th className={style.text}>medical analysis</th>
               <th className={style.text}>doctor name</th>
+              <th className={style.text}>Add Session</th>
+              <th className={style.text}>Add History</th>
             </tr>
           </thead>
           <tbody>
             {sessions.map((session) => (
-              <OneSession key={session.id} session={session} />
+              <OneSession 
+              key={session.id} 
+              session={session} 
+              patientId={patientId} 
+              />
             ))}
           </tbody>
         </table>
