@@ -2,7 +2,11 @@ import React from 'react'
 import style from './Profile.module.css'
 
 export default function OneSession(props) {
-    const{ id, number, medicine, medical_analysis, doc_name } = props.session;
+    const{ id, 
+      number, 
+      medicine, 
+      medical_analysis, 
+      doc_name } = props.session;
     
   return (
     <> 

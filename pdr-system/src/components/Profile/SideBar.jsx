@@ -12,7 +12,7 @@ export default function SideBar(props) {
     email } = props.patient;
 
   const { error, loading, history } = useSelector(
-    (state) => state.patientSlice
+    (state) => state.historySlice
   );
 
   const {

@@ -3,7 +3,8 @@ import SideBar from '../components/Profile/SideBar';
 import AllSessions from '../components/Profile/AllSessions';
 import style from '../components/Profile/Profile.module.css'
 import { useDispatch } from 'react-redux';
-import { patientHistory, patientSessions } from '../redux/slices/patient';
+import { patientSessions } from '../redux/slices/session';
+import { patientHistory } from '../redux/slices/history';
 
 export default function Profile(props) {
     const patient  = props.patient;

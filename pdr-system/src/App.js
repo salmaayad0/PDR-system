@@ -21,6 +21,7 @@ import PatientRegister from './pages/PatientRegister';
 import Profile from './pages/Profile';
 import ViewPatients from './pages/ViewPatients';
 import ViewDoctors from './pages/ViewDoctors';
+import NotFound from './pages/NotFound';
 
 function App() {
   useEffect(() => {
@@ -68,6 +69,7 @@ function App() {
             <Route path='/allpatients' element={<ViewPatients />} />
             <Route path='/alldoctors' element={<ViewDoctors />} />
           </Route>
+          <Route path='*' element={<NotFound />} />
         </Routes>
         </>
       )}

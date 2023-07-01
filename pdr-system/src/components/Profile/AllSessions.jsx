@@ -5,7 +5,7 @@ import style from "./Profile.module.css";
 
 export default function AllSessions() {
   const { error, loading, sessions } = useSelector(
-    (state) => state.patientSlice
+    (state) => state.sessionSlice
   );
 
   return (
