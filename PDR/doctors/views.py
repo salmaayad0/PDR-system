@@ -7,9 +7,11 @@ from rest_framework.status import *
 from django.shortcuts import  get_object_or_404
 from rest_framework.permissions import  IsAdminUser,IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework import permissions,authentication
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes,authentication_classes
 from patients.models import Patients,Sessions
 from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
+
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_doctor(req,id):
@@ -46,6 +48,8 @@ def update_doctor(request,id):
 
 
 class UserList(generics.ListCreateAPIView):
+    authentication_classes=([TokenAuthentication])
+    permission_classes=([permissions.AllowAny])
     queryset = Doctors.objects.all()
     serializer_class = Doctorselizer
 
@@ -65,7 +69,8 @@ class registrationView(APIView):
 
     """"API endpoint for doctor Registration"""
 
-    permission_classes = []
+    authentication_classes=([TokenAuthentication])
+    permission_classes=([permissions.AllowAny])
     def post(self, request, format=None):
         registrationSerializer = RegDoctorselizer(
             data=request.data)

@@ -99,3 +99,12 @@ class RegPatientselizer(serializers.ModelSerializer):
         user.save()
      
         return user   
+    
+
+
+
+
+class LogonPatientselizer(serializers.ModelSerializer):
+    class Meta:
+        model=Patients
+        fields =("email","password")    
