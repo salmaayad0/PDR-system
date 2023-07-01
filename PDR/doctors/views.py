@@ -22,6 +22,7 @@ def delete_doctor(req,id):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_doctor(request,id):
     objcatgory=Doctors.objects.get(id=id)
