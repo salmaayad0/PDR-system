@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import style from './Form.module.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addSession } from "../../redux/slices/session";
+import { useNavigate } from "react-router-dom";
 
 
 export default function SessionForm(props) {
   const patientId = props.patientId;
 
   const [formData, setFormData] = useState({
+    number: 10,
     diagnosis: "",
     date: "",
     medicine: "",
     medical_analysis: "",
-    doc_name: 0,
+    doc_name: 3,
     pat_name: patientId });
 
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
+
+  const { error } = useSelector( state => state.sessionSlice )
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -42,7 +48,7 @@ export default function SessionForm(props) {
       // submit form data
       // send data to backend
       dispatch(addSession(formData))
-      // if(!error) navigate('/alldoctors');
+      if(!error) console.log('done');
     } else {
       setErrors(validationErrors);
     }

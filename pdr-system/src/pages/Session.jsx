@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 
 export default function Session() {
   const { patientId } = useParams();
-  console.log(patientId);
 
   return (
     <section className="main">
@@ -21,7 +20,7 @@ export default function Session() {
           }
         >
           <div className={style.title}>
-        <h2>New Session</h2>
+        <h2>Add New Session</h2>
       </div>
           <SessionForm patientId={patientId} />
         </div>

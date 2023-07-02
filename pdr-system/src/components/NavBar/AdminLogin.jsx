@@ -64,6 +64,8 @@ export default function AdminLogin() {
     localStorage.removeItem("admin");
     adminState = {};
     clearForm();
+    navgate('/');
+    window.location.reload();
   };
 
   if(adminState){

@@ -5,12 +5,12 @@ import style from "../components/Profile/Profile.module.css";
 import { useDispatch } from "react-redux";
 import { patientSessions } from "../redux/slices/session";
 import { patientHistory } from "../redux/slices/history";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getOnePatient } from "../redux/slices/patient";
-import { BgImg } from "../components/Background/Bg.styles";
 
-export default function Profile() {
+export default function ProfilePatient() {
   const { patientId } = useParams();
+  console.log(patientId);
 
   const dispatchPatient = useDispatch();
   useEffect(() => {
@@ -30,7 +30,6 @@ export default function Profile() {
   return (
     <>
       <section className="main">
-        <BgImg>
           <div
             data-aos="flip-down"
             data-aos-anchor-easing="ease-in-out"
@@ -43,27 +42,11 @@ export default function Profile() {
               </div>
 
               <div className={`col col-lg-9 ` + style.contet}>
-                <h2 className={style.title}>Patient Sessions</h2>
-                <div>
-                  <Link
-                    className={style.sumitButton + ` nav-link `}
-                    to={`/session/${patientId}`}
-                  >
-                    Add Session
-                  </Link>
-
-                  <Link
-                    className={style.sumitButton + ` nav-link `}
-                    to={`/history/${patientId}`}
-                  >
-                    Update History
-                  </Link>
-                </div>
+                <h2 className={style.title}>Your Sessions</h2>
                 <AllSessions />
               </div>
             </div>
           </div>
-        </BgImg>
       </section>
     </>
   );

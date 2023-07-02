@@ -2,14 +2,10 @@ import React from "react";
 import style from "./Profile.module.css";
 import { useSelector } from "react-redux";
 
-export default function SideBar(props) {
-  const { id, 
-    name, 
-    age, 
-    gender, 
-    address, 
-    phone_number, 
-    email } = props.patient;
+export default function SideBar() {
+  const { patient } = useSelector((state) => state.patientSlice);
+  
+  const { name, age, gender, address, phone_number, email } = patient;
 
   const { error, loading, history } = useSelector(
     (state) => state.historySlice
@@ -69,12 +65,8 @@ export default function SideBar(props) {
               <b>{name} has :</b>
             </p>
             <div>
-              <p className={style.text}>
-                {Diabetes && <span>Diabetes</span>}
-                </p>
-              <p className={style.text}>
-                {Cancer && <span>Cancer</span>}
-                </p>
+              <p className={style.text}>{Diabetes && <span>Diabetes</span>}</p>
+              <p className={style.text}>{Cancer && <span>Cancer</span>}</p>
               <p className={style.text}>
                 {Heart_Disease && <span>Heart Disease</span>}
               </p>

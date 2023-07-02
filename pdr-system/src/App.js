@@ -22,6 +22,7 @@ import Profile from './pages/Profile';
 import ViewPatients from './pages/ViewPatients';
 import ViewDoctors from './pages/ViewDoctors';
 import NotFound from './pages/NotFound';
+import ProfilePatient from './pages/ProfilePatient';
 
 function App() {
   useEffect(() => {
@@ -65,10 +66,11 @@ function App() {
             <Route path='/search/' element={<PatientSearch />} />
             <Route path='/addDoctor' element={<DocRegister />} />
             <Route path='/addPatient' element={<PatientRegister />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile/:patientId' element={<Profile />} />
             <Route path='/allpatients' element={<ViewPatients />} />
             <Route path='/alldoctors' element={<ViewDoctors />} />
           </Route>
+          <Route path='/report/:patientId' element={<ProfilePatient />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         </>

@@ -3,18 +3,17 @@ import style from "./Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { patientSearch } from "../../redux/slices/patient";
-import Profile from "../../pages/Profile";
 
 export default function PatientSearchForm() {
   const [phone_number, setPhone] = useState(0);
 
   const dispatch = useDispatch();
 
-  const navgate = useNavigate();
-
-  let { loading, error, patient } = useSelector(
+  const { loading, error, patient } = useSelector(
     (state) => state.patientSlice
   );
+
+  const navgate = useNavigate();
 
   const handleInputChange = (event) => {
     setPhone(event.target.value);
@@ -27,25 +26,20 @@ export default function PatientSearchForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(patientSearch(phone_number));
+
     if (error) {
       navgate("/addPatient");
       clearForm();
     } 
-    // else {
-    //   console.log(patient);
-    //   navgate("/profile",{
-    //     patient: patient
-    //   })
-    // }
+    else if(patient) {
+      let patientId = patient.id;
+      navgate(`/profile/${patientId}`)
+      return patient
+    }
 
   };
 
   return (
-    <>
-      {patient ? (<Profile 
-      patient={patient}
-      patientId={patient.id}
-       /> ) : (
         <>
         <div className={style.title}>
             <h2>Patient Search</h2>
@@ -83,7 +77,5 @@ export default function PatientSearchForm() {
             </div>
           </form>
           </>
-     )}
-    </>
   );
 }

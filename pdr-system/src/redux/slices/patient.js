@@ -38,6 +38,16 @@ export const addPatient = createAsyncThunk('addPatient', async (patObj, thunk) =
     }
 })
 
+export const getOnePatient = createAsyncThunk('getOnePatient', async (id, thunk) => {
+    const { rejectWithValue } = thunk;
+    try {
+        const { data } = await axios.get(`http://127.0.0.1:8000/patients/get_patient/${id}`);
+        return data
+    } catch (error) {
+        return rejectWithValue('not found')
+    }
+})
+
 export const patientSlice = createSlice({
     name: 'patient',
     initialState,
@@ -90,6 +100,22 @@ export const patientSlice = createSlice({
         builder.addCase(addPatient.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;   
+        })
+
+        //get one patient
+        builder.addCase(getOnePatient.pending, state => {
+            state.loading = true;
+            state.error = null
+        })
+
+        builder.addCase(getOnePatient.fulfilled, (state, action) => {
+            state.loading = false;
+            state.patient = action.payload;
+        })
+
+        builder.addCase(getOnePatient.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;  
         })
 
     }

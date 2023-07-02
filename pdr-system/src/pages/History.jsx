@@ -2,8 +2,12 @@ import React from "react";
 import { BgImg } from "../components/Background/Bg.styles";
 import HistoryForm from "../components/Forms/HistoryForm";
 import style from "../components/Forms/Form.module.css";
+import { useParams } from "react-router-dom";
 
 export default function History() {
+  const { patientId } = useParams();
+  console.log(patientId);
+
   return (
     <section className="main">
       <BgImg>
@@ -19,7 +23,7 @@ export default function History() {
           <div className={style.title}>
             <h2>Patient's medical history</h2>
           </div>
-          <HistoryForm />
+          <HistoryForm patientId={patientId} />
         </div>
       </BgImg>
     </section>

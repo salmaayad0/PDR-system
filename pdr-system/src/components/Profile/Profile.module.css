@@ -1,3 +1,13 @@
+.formContainer{
+  padding: 20px;
+  position: relative;
+  z-index: 3;
+}
+
+.content{
+  position: relative;
+  z-index: 4;
+}
 .sideBar {
   height: 100vh;
   padding: 0;
@@ -13,11 +23,15 @@
     font-weight: bold;
     padding: 3px 10px;
     margin: 0px;
+    position: relative;
+    z-index: 4;
 }
 
 .text{
   font-family: var(--font-one);
   font-size: 14px;
+  position: relative;
+  z-index: 4;
 }
 
 .sumitButton{

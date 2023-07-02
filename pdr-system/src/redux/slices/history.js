@@ -17,10 +17,10 @@ export const patientHistory = createAsyncThunk('patientHistory', async (id, thun
     }
 })
 
-export const addHistory = createAsyncThunk('addHistory', async (hisObj, thunk) => {
+export const updateHistory = createAsyncThunk('updateHistory', async (hisObj,id, thunk) => {
     const { rejectWithValue } = thunk;
     try {
-        const { data } = await axios.post(`http://127.0.0.1:8000/patients/addhistory/`, hisObj);
+        const { data } = await axios.post(`http://127.0.0.1:8000/patients/UpdateHistory/${id}/`, hisObj);
         return data
     } catch (error) {
         return rejectWithValue('this patient has no history')
@@ -51,17 +51,17 @@ export const historySlice = createSlice({
         })
 
         //add history
-        builder.addCase(addHistory.pending, state => {
+        builder.addCase(updateHistory.pending, state => {
             state.loading = true;
             state.error = "";
         })
 
-        builder.addCase(addHistory.fulfilled, (state, action) => {
+        builder.addCase(updateHistory.fulfilled, (state, action) => {
             state.loading = false;
             state.history.push(action.payload);
         })
 
-        builder.addCase(addHistory.rejected, (state, action) => {
+        builder.addCase(updateHistory.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;   
         })
