@@ -42,7 +42,10 @@ export default function PatientSearchForm() {
 
   return (
     <>
-      {patient ? (<Profile patient={patient} /> ) : (
+      {patient ? (<Profile 
+      patient={patient}
+      patientId={patient.id}
+       /> ) : (
         <>
         <div className={style.title}>
             <h2>Patient Search</h2>

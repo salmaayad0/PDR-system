@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 export default function OneSession(props) {
   const { number, medicine, medical_analysis, doc_name } = props.session;
 
-  const patientId = props.patientId;
-  console.log(patientId);
+  // const patientId = props.patientId;
+  // console.log(patientId);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function OneSession(props) {
         <td className={style.text}>
           <DocName />
         </td>
-        <td className={style.text}>
+        {/* <td className={style.text}>
           <Link 
           className={style.sumitButton + ` nav-link `} 
           to={"/session"}
@@ -42,7 +42,7 @@ export default function OneSession(props) {
           >
             Add History
           </Link>
-        </td>
+        </td> */}
       </tr>
     </>
   );

@@ -4,7 +4,8 @@ import OneSession from "./OneSession";
 import style from "./Profile.module.css";
 
 export default function AllSessions(props) {
-  const patientId = props.patientId;
+  // const patientId = props.patientId;
+  
   const { error, loading, sessions } = useSelector(
     (state) => state.sessionSlice
   );
@@ -33,8 +34,8 @@ export default function AllSessions(props) {
               <th className={style.text}>Medicien</th>
               <th className={style.text}>medical analysis</th>
               <th className={style.text}>doctor name</th>
-              <th className={style.text}>Add Session</th>
-              <th className={style.text}>Add History</th>
+              {/* <th className={style.text}>Add Session</th>
+              <th className={style.text}>Add History</th> */}
             </tr>
           </thead>
           <tbody>
@@ -42,7 +43,7 @@ export default function AllSessions(props) {
               <OneSession 
               key={session.id} 
               session={session} 
-              patientId={patientId} 
+              // patientId={patientId} 
               />
             ))}
           </tbody>

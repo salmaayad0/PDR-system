@@ -60,9 +60,9 @@ function App() {
             <Route path='/doctor' element={<Doctor />} />
             <Route path='/patient' element={<Patient />} />
             <Route path='/admin' element={<Admin />} />
-            <Route path='/session' element={<Session />} />
-            <Route path='/history' element={<History />} />
-            <Route path='/search' element={<PatientSearch />} />
+            <Route path='/session/:patientId' element={<Session />} />
+            <Route path='/history/:patientId' element={<History />} />
+            <Route path='/search/' element={<PatientSearch />} />
             <Route path='/addDoctor' element={<DocRegister />} />
             <Route path='/addPatient' element={<PatientRegister />} />
             <Route path='/profile' element={<Profile />} />

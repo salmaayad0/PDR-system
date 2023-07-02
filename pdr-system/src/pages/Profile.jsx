@@ -5,19 +5,20 @@ import style from '../components/Profile/Profile.module.css'
 import { useDispatch } from 'react-redux';
 import { patientSessions } from '../redux/slices/session';
 import { patientHistory } from '../redux/slices/history';
+import { Link } from 'react-router-dom';
 
 export default function Profile(props) {
     const patient  = props.patient;
-    const { id } = patient
+    const patientId  = props.patientId
 
     const dispatchSession = useDispatch();
     useEffect(()=>{
-      dispatchSession(patientSessions(id))
+      dispatchSession(patientSessions(patientId))
     },[]);
     
     const dispatchHistory = useDispatch();
     useEffect(() => {
-    dispatchHistory(patientHistory(id));
+    dispatchHistory(patientHistory(patientId));
   }, []);
 
   return (
@@ -27,8 +28,26 @@ export default function Profile(props) {
             <SideBar patient={patient} />
           </div>
           <div className="col col-lg-10 ">
-            <h3 className={style.title}>Patient Sessions</h3>
-           <AllSessions patientId={id} />
+            <h2 className={style.title}>Patient Sessions</h2>
+            <div>
+            <Link 
+          className={style.sumitButton + ` nav-link `} 
+          to={`/session/${patientId}`}
+          >
+            Add Session
+          </Link>
+
+          <Link 
+          className={style.sumitButton + ` nav-link `} 
+          to={`/history/${patientId}`}
+          >
+            Update History
+          </Link>
+
+          </div>
+           <AllSessions 
+          //  patientId={id} 
+           />
           </div>
         </div>
     </>

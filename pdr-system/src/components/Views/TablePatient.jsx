@@ -37,7 +37,10 @@ export default function TablePatient() {
           </thead>
           <tbody>
             {patients.map((patient) => (
-              <AllPatients key={patient.id} patient={patient} />
+              <AllPatients 
+              key={patient.id} 
+              patient={patient} 
+              />
             ))}
           </tbody>
         </table>

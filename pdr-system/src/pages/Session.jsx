@@ -2,8 +2,12 @@ import React from "react";
 import SessionForm from "../components/Forms/SessionForm";
 import { BgImg } from "../components/Background/Bg.styles";
 import style from "../components/Forms/Form.module.css";
+import { useParams } from "react-router-dom";
 
-export default function AddSession() {
+export default function Session() {
+  const { patientId } = useParams();
+  console.log(patientId);
+
   return (
     <section className="main">
       <BgImg>
@@ -19,7 +23,7 @@ export default function AddSession() {
           <div className={style.title}>
         <h2>New Session</h2>
       </div>
-          <SessionForm />
+          <SessionForm patientId={patientId} />
         </div>
       </BgImg>
     </section>
