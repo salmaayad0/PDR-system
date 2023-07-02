@@ -29,8 +29,8 @@ class Sessions(models.Model):
     number=models.IntegerField(auto_created=True)
     medicine=models.TextField(max_length=1000)
     medical_analysis=models.TextField( max_length=1000,null=True,blank=True)
-    medical_diagnoses=models.TextField(max_length=1000)
-    history=models.DateField()
+    # medical_diagnoses=models.TextField(max_length=1000)
+    # history=models.DateField()
     doc_name=models.ForeignKey( Doctors,
         on_delete=models.CASCADE)
     pat_name=models.ForeignKey( Patients,
@@ -46,12 +46,13 @@ class Sessions(models.Model):
 
 
 class History(models.Model):
-    Diabetes=models.BooleanField(default=False)     
-    Allergies=models.BooleanField(default=False)     
+    Diabetes=models.BooleanField(default=False)  
+    # cancer= models.BooleanField(default=False)   
+    # Allergies=models.BooleanField(default=False)     
     Heart_Disease=models.BooleanField(default=False)     
     High_Blood_Pressure=models.BooleanField(default=False)     
     High_Cholesterol=models.BooleanField(default=False)
-    Bone_denisty=models.BooleanField(default=False)    
+    # Bone_denisty=models.BooleanField(default=False)    
     pat_name=models.ForeignKey( Patients,
         on_delete=models.CASCADE)  
  
