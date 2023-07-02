@@ -93,10 +93,10 @@ WSGI_APPLICATION = 'PDR.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pdr',
-        'USER': 'postgres',
+        'USER': 'admin',
         'PASSWORD': 'eman123',
         'HOST': 'localhost',
         'PORT': '5432',
