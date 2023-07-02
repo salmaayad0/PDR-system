@@ -57,8 +57,7 @@ class UpdateHistorySerializer(serializers.ModelSerializer):
     class Meta:
         
         model=History
-        fields=("Diabetes","Heart_Disease","High_Blood_Pressure","High_Cholesterol","pat_name")                      
-
+        fields=("Diabetes","Cancer","Heart_Disease","High_Blood_Pressure","High_Cholesterol","pat_name")                      
 # "Allergies""Bone_denisty",
 
 
