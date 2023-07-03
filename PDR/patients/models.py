@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from doctors.models import Doctors
+from datetime import datetime    
 # Create your models here.
 class Patients(models.Model):
     x=[
@@ -29,9 +30,8 @@ class Sessions(models.Model):
     number=models.IntegerField(auto_created=True)
     medicine=models.TextField(max_length=1000)
     medical_analysis=models.TextField(max_length=1000)
-    # medical_diagnose=models.TextField(max_length=1000)
-    # date= models.DateTimeField(auto_now_add=True)
-   
+    medical_diagnose=models.TextField(max_length=1000)
+    date = models.DateTimeField(default=datetime.now, blank=True)   
     doc_name=models.ForeignKey( Doctors,
         on_delete=models.CASCADE)
     pat_name=models.ForeignKey( Patients,
@@ -55,10 +55,12 @@ class Sessions(models.Model):
 
 class History(models.Model):
     Diabetes=models.BooleanField(default=False)     
-    Cancer=models.BooleanField(default=False)     
+    Allergies=models.BooleanField(default=False)     
     Heart_Disease=models.BooleanField(default=False)     
     High_Blood_Pressure=models.BooleanField(default=False)     
     High_Cholesterol=models.BooleanField(default=False)   
+    BoneDenisty=models.BooleanField(default=False)   
+
     pat_name=models.ForeignKey( Patients,
         on_delete=models.CASCADE)  
  
