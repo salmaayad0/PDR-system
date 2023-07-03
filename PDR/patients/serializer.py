@@ -22,7 +22,7 @@ class UpdateSessionSerializer(serializers.ModelSerializer):
     class Meta:
         
         model=Sessions
-        fields=("number","medicine","medical_analysis","doc_id","pat_id")
+        fields=("medicine","medical_diagnose","date","medical_analysis","doc_name","pat_name")
 
 # ," medical_diagnoses","history"
 class ListSessionSerializer(serializers.ModelSerializer):
@@ -64,7 +64,7 @@ class UpdateHistorySerializer(serializers.ModelSerializer):
     class Meta:
         
         model=History
-        fields=("Diabetes","Cancer","Heart_Disease","High_Blood_Pressure","High_Cholesterol","pat_id")                      
+        fields=("Diabetes","Allergies","Heart_Disease","High_Blood_Pressure","High_Cholesterol","BoneDenisty","pat_name")                      
 # "Allergies""Bone_denisty",
 
 
