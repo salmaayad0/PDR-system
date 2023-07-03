@@ -28,9 +28,9 @@ class Patients(models.Model):
 class Sessions(models.Model):
     number=models.IntegerField(auto_created=True)
     medicine=models.TextField(max_length=1000)
-    medical_analysis=models.TextField( max_length=1000,null=True,blank=True)
-    # medical_diagnoses=models.TextField(max_length=1000)
-    # history=models.DateField()
+    medical_analysis=models.TextField(max_length=1000)
+    # analysis_image=models.ImageField(upload_to="photos/%y/%m/%d" ,null=True ,blank=True)
+    # x_ray= models.ImageField(upload_to='images',null=True ,blank=True)  
     doc_name=models.ForeignKey( Doctors,
         on_delete=models.CASCADE)
     pat_name=models.ForeignKey( Patients,
@@ -42,17 +42,22 @@ class Sessions(models.Model):
         unique_together = ('pat_name', 'number')
 
 
+   
+
+# class Pat_Doc(models.Model):
+#       doc_name=models.ManyToManyField(Doctors)
+#       pat_name=models.ManyToManyField(Patients)
+      
+
 
 
 
 class History(models.Model):
-    Diabetes=models.BooleanField(default=False)  
-    # cancer= models.BooleanField(default=False)   
-    # Allergies=models.BooleanField(default=False)     
+    Diabetes=models.BooleanField(default=False)     
+    Cancer=models.BooleanField(default=False)     
     Heart_Disease=models.BooleanField(default=False)     
     High_Blood_Pressure=models.BooleanField(default=False)     
-    High_Cholesterol=models.BooleanField(default=False)
-    # Bone_denisty=models.BooleanField(default=False)    
+    High_Cholesterol=models.BooleanField(default=False)   
     pat_name=models.ForeignKey( Patients,
         on_delete=models.CASCADE)  
  

@@ -17,7 +17,7 @@ class UpdateSessionSerializer(serializers.ModelSerializer):
         model=Sessions
         fields=("number","medicine","medical_analysis","doc_name","pat_name")
 
-
+# ," medical_diagnoses","history"
 class ListSessionSerializer(serializers.ModelSerializer):
   
     class Meta:
@@ -58,8 +58,7 @@ class UpdateHistorySerializer(serializers.ModelSerializer):
         
         model=History
         fields=("Diabetes","Cancer","Heart_Disease","High_Blood_Pressure","High_Cholesterol","pat_name")                      
-
-
+# "Allergies""Bone_denisty",
 
 
 
