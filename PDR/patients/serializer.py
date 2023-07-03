@@ -125,3 +125,9 @@ class LogonPatientselizer(serializers.ModelSerializer):
     #         print(x)
     #         print("*******")
     #         return u
+
+
+# class LogooutPatientselizer(serializers.ModelSerializer):
+#     class Meta:
+#         model=Patients
+        
