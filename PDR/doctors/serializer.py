@@ -7,7 +7,11 @@ class Doctorselizer(serializers.ModelSerializer):
         model=Doctors
         fields ='__all__'
 
-
+class LogonDoctorselizer(serializers.ModelSerializer):
+    class Meta:
+        model=Doctors
+        fields =("email","password")  
+        
 class RegDoctorselizer(serializers.ModelSerializer):
     class Meta:
         model=Doctors

@@ -57,7 +57,15 @@ def get_patient_by_phone(request,phone_number):
     else:
         return  Response(status=HTTP_404_NOT_FOUND)
     
-
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([permissions.AllowAny])
+def get_patient_by_email(request,email):
+    obj=Patients.objects.get(email=email)
+    if(obj is not None):
+        return Response(data=Patientselizer(obj).data)
+    else:
+        return  Response(status=HTTP_404_NOT_FOUND)
 
 
 @api_view(['GET'])
@@ -103,18 +111,6 @@ def update_patient(request,id):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND,data={'message':'id not found'})  
     
-# class CreateSession(views.APIView):
-#     authentication_classes=([TokenAuthentication])
-#     permission_classes = ([permissions.AllowAny])
-    
-#     serializer_class = AddSessionSerializer
-
-#     def post(self, request,id):
-#         serializer = self.serializer_class(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
 
 
@@ -254,13 +250,15 @@ class LoginP(APIView):
                 for patient in queryset:
                     if patient.email==registrationSerializer.data['email'] and patient.password==registrationSerializer.data['password']:
                         n=authenticate(registrationSerializer.data)
+                        print(n)
                         if n is not None:
                             request.session['email']=registrationSerializer.data["email"]
                             login(request,n)
                         return Response(registrationSerializer.data,status=HTTP_200_OK)
 
+                    else:
 
-
+                       return Response(registrationSerializer.data,status=HTTP_200_OK)
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
@@ -289,42 +287,3 @@ def LogoutP(request):
 
 
 
-# @api_view(['GET'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([permissions.AllowAny])
-# def trainerlogin(request):
-# 	if request.method=='POST':
-# 		email=request.POST['email']
-# 		password=request.POST['password']
-# 		trainer=Patients.objects.filter(email=email,password=password)
-        
-# 		if trainer:
-# 			return Response(LogonPatientselizer(trainer).data)
-# 		else:
-#           	 return Response(status=HTTP_201_CREATED)
-
-
-# @api_view(['POST'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([permissions.AllowAny])
-
-# def Login(request):
-#     context={}
-#     if(request.method=='POST'):
-#         #xquery([obj1])
-#         # u=Patients.objects.filter(email=request.POST['email'],password=request.POST['password'])
-#         # x=LogonPatientselizer(data=request.data)
-#         # userobj=authenticate(username=request.POST['email'],password=request.POST['password'])
-#         # print(userobj)
-#         print(email=request.POST['email'])
-#         # print(x)
-#         return Response(status=HTTP_201_CREATED)
-
-    #     if(len(u)!=0 and userobj is not  None):
-    #         #add username in session
-    #         req.session['username']=u[0].username
-    #         login(req,userobj)
-    #         return HttpResponseRedirect('/Tasks')
-    #     else:
-    #         context['msg']='invalid email or password'
-    # return render(req,'login.html',context=context)

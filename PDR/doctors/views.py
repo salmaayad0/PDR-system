@@ -11,6 +11,7 @@ from rest_framework.decorators import permission_classes,authentication_classes
 from patients.models import Patients,Sessions
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
+from django.contrib.auth import login,authenticate,logout
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
@@ -31,7 +32,15 @@ def get_doctor(request,id):
     else:
         return  Response(status=HTTP_404_NOT_FOUND)
     
-
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([permissions.AllowAny])
+def get_doctor_by_email(request,email):
+    obj=Doctors.objects.get(email=email)
+    if(obj is not None):
+        return Response(data=Doctorselizer(obj).data)
+    else:
+        return  Response(status=HTTP_404_NOT_FOUND)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
@@ -88,6 +97,30 @@ class registrationView(APIView):
                 'user_data': registrationSerializer.errors,
             }, status=HTTP_400_BAD_REQUEST)     
         
+class LoginD(APIView):
+    authentication_classes=([TokenAuthentication])
+    permission_classes = ([permissions.AllowAny])
+    def post(self, request, format=None):
+        registrationSerializer = LogonDoctorselizer(
+            data=request.data)
+        # print(request.data)
+        print(registrationSerializer)
+        queryset = Doctors.objects.all()
+        checkregistration = registrationSerializer.is_valid()
+        print(checkregistration)
+        # if checkregistration :
+        #         for patient in queryset:
+        #             if patient.email==registrationSerializer.data['email'] and patient.password==registrationSerializer.data['password']:
+        #                 n=authenticate(registrationSerializer.data)
+        #                 print(n)
+        #                 if n is not None:
+        #                     request.session['email']=registrationSerializer.data["email"]
+        #                     login(request,n)
+        #                 return Response(registrationSerializer.data,status=HTTP_200_OK)
+
+        #             else:
+
+        return Response(registrationSerializer.data,status=HTTP_200_OK)
 
 
 
