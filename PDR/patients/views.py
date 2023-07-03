@@ -246,19 +246,20 @@ class LoginP(APIView):
         print(registrationSerializer)
         queryset = Patients.objects.all()
         checkregistration = registrationSerializer.is_valid()
+        print(queryset)
+        print(checkregistration)
         if checkregistration :
                 for patient in queryset:
                     if patient.email==registrationSerializer.data['email'] and patient.password==registrationSerializer.data['password']:
                         n=authenticate(registrationSerializer.data)
-                        print(n)
                         if n is not None:
                             request.session['email']=registrationSerializer.data["email"]
                             login(request,n)
                         return Response(registrationSerializer.data,status=HTTP_200_OK)
 
-                    else:
+                else:
 
-                       return Response(registrationSerializer.data,status=HTTP_200_OK)
+                         return Response(status=status.HTTP_404_NOT_FOUND,data={'message':'patient not found'})  
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])

@@ -12,6 +12,7 @@ from patients.models import Patients,Sessions
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth import login,authenticate,logout
+from rest_framework import status
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
@@ -107,20 +108,21 @@ class LoginD(APIView):
         print(registrationSerializer)
         queryset = Doctors.objects.all()
         checkregistration = registrationSerializer.is_valid()
+        print(queryset)
         print(checkregistration)
-        # if checkregistration :
-        #         for patient in queryset:
-        #             if patient.email==registrationSerializer.data['email'] and patient.password==registrationSerializer.data['password']:
-        #                 n=authenticate(registrationSerializer.data)
-        #                 print(n)
-        #                 if n is not None:
-        #                     request.session['email']=registrationSerializer.data["email"]
-        #                     login(request,n)
-        #                 return Response(registrationSerializer.data,status=HTTP_200_OK)
+        if checkregistration :
+                for patient in queryset:
+                    if patient.email==registrationSerializer.data['email'] and patient.password==registrationSerializer.data['password']:
+                        n=authenticate(registrationSerializer.data)
+                        print(n)
+                        if n is not None:
+                            request.session['email']=registrationSerializer.data["email"]
+                            login(request,n)
+                        return Response(registrationSerializer.data,status=status.HTTP_200_OK)
 
-        #             else:
+                else:
 
-        return Response(registrationSerializer.data,status=HTTP_200_OK)
+                          return Response(status=HTTP_404_NOT_FOUND,data={'message':'doctor not found'})  
 
 
 
