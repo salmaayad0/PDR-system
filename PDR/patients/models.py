@@ -31,7 +31,7 @@ class Sessions(models.Model):
     medicine=models.TextField(max_length=1000)
     medical_analysis=models.TextField(max_length=1000)
     medical_diagnose=models.TextField(max_length=1000)
-    date = models.DateTimeField(default=datetime.now, blank=True)   
+    date = models.TextField(max_length=100)   
     doc_name=models.ForeignKey( Doctors,
         on_delete=models.CASCADE)
     pat_name=models.ForeignKey( Patients,
