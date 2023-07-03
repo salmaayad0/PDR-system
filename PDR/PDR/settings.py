@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 REST_FRAMEWORK = {  'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-        #    'rest_framework.permissions.IsAdminUser', 
+           'rest_framework.permissions.IsAdminUser', 
          'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -96,7 +96,7 @@ DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pdr',
-        'USER': 'admin',
+        'USER': 'postgres',
         'PASSWORD': 'eman123',
         'HOST': 'localhost',
         'PORT': '5432',

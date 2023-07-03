@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import delete_patient,update_patient,search_patient,CreateSession,trainerlogin,get_patient,UpdateSession,registrationView,ListSession,CreateHistory,Listhistory,UpdateHistory,get_patient_by_phone
+from .views import delete_patient,update_patient,search_patient,LoginP,CreateSession,LogoutP,get_patient,UpdateSession,registrationView,ListSession,CreateHistory,Listhistory,UpdateHistory,get_patient_by_phone,login
 from rest_framework.generics import ListCreateAPIView
 from .models import Patients
 from .serializer import Patientselizer
@@ -17,7 +17,8 @@ path('addhistory/', CreateHistory.as_view()),
 path('GetHistory/<int:id>',Listhistory),
 path('UpdateHistory/<int:id>/',UpdateHistory),
 path('registration/', registrationView.as_view(), name='api_doctor_registration'),
-path('trainerlogin/', trainerlogin),
-
+# path('trainerlogin/', trainerlogin),
+path("login",LoginP.as_view()),
+path("logout",LogoutP)
 
 ]

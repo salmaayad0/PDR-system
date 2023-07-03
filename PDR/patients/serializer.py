@@ -1,11 +1,18 @@
 from rest_framework import serializers
 from .models import *
 from django.db.models import fields
+from django.contrib.auth import login,authenticate,logout
 
 class Patientselizer(serializers.ModelSerializer):
     class Meta:
         model=Patients
         fields ='__all__'
+
+
+class LogPatientSerilaizer(serializers.ModelSerializer):
+    class Meta:
+        model=Patients
+        fields =("email","password")
 
 
 
@@ -107,3 +114,14 @@ class LogonPatientselizer(serializers.ModelSerializer):
     class Meta:
         model=Patients
         fields =("email","password")    
+
+    # def login(self,email,password)    :
+    #      x=Patients.objects.all()
+    #      u=Patients.objects.filter(email=Patients.email,password=password)
+    #     # x=LogonPatientselizer(data=request.data)
+    #     #  userobj=authenticate(email=email,password=password)
+    #      if u in x:
+    #         print(u)
+    #         print(x)
+    #         print("*******")
+    #         return u

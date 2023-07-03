@@ -29,8 +29,9 @@ class Sessions(models.Model):
     number=models.IntegerField(auto_created=True)
     medicine=models.TextField(max_length=1000)
     medical_analysis=models.TextField(max_length=1000)
-    # analysis_image=models.ImageField(upload_to="photos/%y/%m/%d" ,null=True ,blank=True)
-    # x_ray= models.ImageField(upload_to='images',null=True ,blank=True)  
+    # medical_diagnose=models.TextField(max_length=1000)
+    # date= models.DateTimeField(auto_now_add=True)
+   
     doc_name=models.ForeignKey( Doctors,
         on_delete=models.CASCADE)
     pat_name=models.ForeignKey( Patients,
