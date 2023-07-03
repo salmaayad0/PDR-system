@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'PDR.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pdr',
+        'NAME': 'pdr_graduation',
         'USER': 'postgres',
         'PASSWORD': 'eman123',
         'HOST': 'localhost',
