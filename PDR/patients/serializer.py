@@ -22,7 +22,7 @@ class UpdateSessionSerializer(serializers.ModelSerializer):
     class Meta:
         
         model=Sessions
-        fields=("medicine","medical_diagnose","date","medical_analysis","doc_name","pat_name")
+        fields=("medicine","medical_diagnose","date","medical_analysis","doc_name")
 
 # ," medical_diagnoses","history"
 class ListSessionSerializer(serializers.ModelSerializer):
