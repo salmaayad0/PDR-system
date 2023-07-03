@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from  rest_framework.decorators import  api_view
 from rest_framework.views import APIView
-
+from django.contrib.auth import login,authenticate,logout
 from .models import *
 from .serializer import *
 from rest_framework import status
@@ -13,6 +13,7 @@ from rest_framework.decorators import permission_classes,authentication_classes
 from django.contrib.auth.decorators import login_required
 from rest_framework import views,generics
 from .serializer import Patientselizer
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import TokenAuthentication
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
@@ -72,7 +73,7 @@ def get_all_patient(request):
 class UserList(generics.ListCreateAPIView):
     authentication_classes=([TokenAuthentication])
     permission_classes = ([permissions.AllowAny])
-    queryset = Doctors.objects.all()
+    queryset = Patients.objects.all()
     serializer_class = Patientselizer
 
     def list(self, request):
@@ -221,7 +222,6 @@ class registrationView(APIView):
     
     authentication_classes=([TokenAuthentication])
     permission_classes = ([permissions.AllowAny])
-    print(permission_classes)
     def post(self, request, format=None):
         registrationSerializer = RegPatientselizer(
             data=request.data)
@@ -240,16 +240,91 @@ class registrationView(APIView):
 
 
 
+class LoginP(APIView):
+    authentication_classes=([TokenAuthentication])
+    permission_classes = ([permissions.AllowAny])
+    def post(self, request, format=None):
+        registrationSerializer = LogonPatientselizer(
+            data=request.data)
+        # print(request.data)
+        print(registrationSerializer)
+        queryset = Patients.objects.all()
+        checkregistration = registrationSerializer.is_valid()
+        if checkregistration :
+                for patient in queryset:
+                    if patient.email==registrationSerializer.data['email'] and patient.password==registrationSerializer.data['password']:
+                        n=authenticate(registrationSerializer.data)
+                        if n is not None:
+                            request.session['email']=registrationSerializer.data["email"]
+                            login(request,n)
+                        return Response(registrationSerializer.data,status=HTTP_200_OK)
+
+
+
+
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([permissions.AllowAny])
-def trainerlogin(request):
-	if request.method=='POST':
-		email=request.POST['email']
-		password=request.POST['password']
-		trainer=Patients.objects.filter(email=email,password=password)
+def LogoutP(request):
+    logout(request)
+    request.session.clear()
+    return Response(status=HTTP_200_OK)
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @api_view(['GET'])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([permissions.AllowAny])
+# def trainerlogin(request):
+# 	if request.method=='POST':
+# 		email=request.POST['email']
+# 		password=request.POST['password']
+# 		trainer=Patients.objects.filter(email=email,password=password)
         
-		if trainer:
-			return Response(LogonPatientselizer(trainer).data)
-		else:
-          	 return Response(status=HTTP_201_CREATED)
+# 		if trainer:
+# 			return Response(LogonPatientselizer(trainer).data)
+# 		else:
+#           	 return Response(status=HTTP_201_CREATED)
+
+
+# @api_view(['POST'])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([permissions.AllowAny])
+
+# def Login(request):
+#     context={}
+#     if(request.method=='POST'):
+#         #xquery([obj1])
+#         # u=Patients.objects.filter(email=request.POST['email'],password=request.POST['password'])
+#         # x=LogonPatientselizer(data=request.data)
+#         # userobj=authenticate(username=request.POST['email'],password=request.POST['password'])
+#         # print(userobj)
+#         print(email=request.POST['email'])
+#         # print(x)
+#         return Response(status=HTTP_201_CREATED)
+
+    #     if(len(u)!=0 and userobj is not  None):
+    #         #add username in session
+    #         req.session['username']=u[0].username
+    #         login(req,userobj)
+    #         return HttpResponseRedirect('/Tasks')
+    #     else:
+    #         context['msg']='invalid email or password'
+    # return render(req,'login.html',context=context)
