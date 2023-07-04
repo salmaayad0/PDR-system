@@ -16,8 +16,8 @@ from .serializer import Patientselizer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import TokenAuthentication
 @api_view(['DELETE'])
-@permission_classes([IsAdminUser])
-@login_required
+@authentication_classes([TokenAuthentication])
+@permission_classes([permissions.AllowAny])
 def delete_patient(req,id):
     data=get_object_or_404(Patients,id=id)
     data.delete()

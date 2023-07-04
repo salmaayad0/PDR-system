@@ -15,7 +15,8 @@ from django.contrib.auth import login,authenticate,logout
 from rest_framework import status
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([permissions.AllowAny])
 def delete_doctor(req,id):
     data=get_object_or_404(Doctors,id=id)
     data.delete()
