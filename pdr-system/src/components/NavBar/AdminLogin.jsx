@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import style from "./Nav.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { adminLoginCheck } from "../../redux/slices/admin";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
   const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ export default function AdminLogin() {
     const errors = {};
 
     if (!data.username) errors.username = "name is required";
-    else if (data.username.length <= 3) errors.username = "name is invalid";
+    else if (data.username.length < 3) errors.username = "name is invalid";
 
     if (!data.password) errors.password = "Password is required";
     else if (data.password.length < 2) errors.password = "Wrong Password";
@@ -54,6 +54,8 @@ export default function AdminLogin() {
       if(!error){
         localStorage.setItem("admin", admin);
         navgate("/admin");
+      } else if(error){
+        navgate("/");
       }
     } else {
       setErrors(validationErrors);
@@ -75,13 +77,12 @@ export default function AdminLogin() {
         className={style.adminInput}
         >{formData.username}
         </p>
-        <Link
-        to={'/'} 
+        <button 
         onClick={handleLogout} 
         className={style.sumitButton}
         >
           Logout
-        </Link>
+        </button>
       </div>
     ) 
   }

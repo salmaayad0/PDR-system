@@ -3,21 +3,13 @@ import { useSelector } from "react-redux";
 import OneSession from "./OneSession";
 import style from "./Profile.module.css";
 
-export default function AllSessions(props) {
-  // const patientId = props.patientId;
-  
-  const { error, loading, sessions } = useSelector(
+export default function AllSessions() {
+  const { loading, sessions } = useSelector(
     (state) => state.sessionSlice
   );
 
   return (
     <>
-      {error && !loading && (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
-      )}
-
       {loading ? (
         <div className="d-flex justify-content-center align-items-center">
           <div className="spinner-border" role="status">
@@ -34,8 +26,6 @@ export default function AllSessions(props) {
               <th className={style.text}>Medicien</th>
               <th className={style.text}>medical analysis</th>
               <th className={style.text}>doctor name</th>
-              {/* <th className={style.text}>Add Session</th>
-              <th className={style.text}>Add History</th> */}
             </tr>
           </thead>
           <tbody>
@@ -43,7 +33,6 @@ export default function AllSessions(props) {
               <OneSession 
               key={session.id} 
               session={session} 
-              // patientId={patientId} 
               />
             ))}
           </tbody>

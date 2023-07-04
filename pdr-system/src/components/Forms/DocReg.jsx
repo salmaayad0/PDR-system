@@ -168,10 +168,11 @@ export default function DocReg() {
 
         <div className="text-center">
           <button type="submit" className={style.sumitButton}>
-            Login
+            Add Doctor
           </button>
         {error && <span className="error text-danger">{error}</span>}
         </div>
+        
       </form>
     </>
   )

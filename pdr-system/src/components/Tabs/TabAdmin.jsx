@@ -47,7 +47,7 @@ export default function TabAdmin() {
                   className={style.sumitButton + ` nav-link `}
                   to={"/addPatient"}
                 >
-                  Add Ptient
+                  Add Patient
                 </Link>
               </li>
 

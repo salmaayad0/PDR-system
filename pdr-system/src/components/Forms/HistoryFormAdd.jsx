@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import style from "./Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateHistory } from "../../redux/slices/history";
 import { useNavigate } from "react-router-dom";
 
-export default function HistoryForm(props) {
-  const patientId = props.patientId;
-  const historyData = props.historyData;
+export default function HistoryFormAdd() {
+    const { patient } = useSelector(state => state.patientSlice)
+    console.log( patient.id);
 
   const [formData, setFormData] = useState({
-    Diabetes: historyData.Diabetes,
-    Allergies: historyData.Allergies,
-    Heart_Disease: historyData.Heart_Disease,
-    High_Blood_Pressure: historyData.High_Blood_Pressure,
-    High_Cholesterol: historyData.High_Cholesterol,
-    BoneDenisty: historyData.BoneDenisty,
-    pat_name: patientId,
+    Diabetes: false,
+    Allergies: false,
+    Heart_Disease: false,
+    High_Blood_Pressure: false,
+    High_Cholesterol: false,
+    BoneDenisty: false,
+    // pat_name: patientId,
   });
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { error, loading } = useSelector( state => state.historySlice )
 
@@ -31,10 +30,10 @@ export default function HistoryForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateHistory({id: patientId, hisObj: formData}));
-    if(!error) {
-      navigate(`/Viewprofile/${patientId}`)
-    }
+    // dispatch(updateHistory({id: patientId, hisObj: formData}));
+    // if(!error) {
+    //   navigate(`/Viewprofile/${patientId}`)
+    // }
   };
 
   

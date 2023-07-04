@@ -15,18 +15,20 @@ import Patient from './pages/Patient';
 import Admin from './pages/Admin';
 import Session from './pages/Session';
 import History from './pages/History';
-import PatientSearch from './pages/PatientSearch';
+import PatientSearch from './Doctor pages/PatientSearch';
 import DocRegister from './pages/DocRegister';
 import PatientRegister from './pages/PatientRegister';
 import Profile from './pages/Profile';
 import ViewPatients from './pages/ViewPatients';
 import ViewDoctors from './pages/ViewDoctors';
 import NotFound from './pages/NotFound';
-import ProfilePatient from './pages/ProfilePatient';
+import ProfilePatient from './Patient pages/ProfilePatient';
+import ProfileForDoc from './Doctor pages/ProfileForDoc';
+import PatientRegisterDoc from './Doctor pages/PatientRegisterDoc';
 
 function App() {
   useEffect(() => {
-    AOS.init(20000);
+    AOS.init(15000);
   }, [])
 
   const [loading, setLoading] = useState(false);
@@ -61,15 +63,19 @@ function App() {
             <Route path='/doctor' element={<Doctor />} />
             <Route path='/patient' element={<Patient />} />
             <Route path='/admin' element={<Admin />} />
-            <Route path='/session/:patientId' element={<Session />} />
-            <Route path='/history/:patientId' element={<History />} />
-            <Route path='/search/' element={<PatientSearch />} />
             <Route path='/addDoctor' element={<DocRegister />} />
             <Route path='/addPatient' element={<PatientRegister />} />
             <Route path='/profile/:patientId' element={<Profile />} />
             <Route path='/allpatients' element={<ViewPatients />} />
             <Route path='/alldoctors' element={<ViewDoctors />} />
           </Route>
+          <Route path='/search' element={<PatientSearch />} />
+          <Route path='/Viewprofile/:patientId' element={<ProfileForDoc />} />
+          <Route path='/addPatientdoc' element={<PatientRegisterDoc />} />
+          <Route path='/session/:patientId' element={<Session />} />
+          <Route path='/history/:patientId' element={<History />} />
+
+
           <Route path='/report/:patientId' element={<ProfilePatient />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

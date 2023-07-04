@@ -1,24 +1,12 @@
 import React from "react";
 import style from "./Profile.module.css";
 import { useSelector } from "react-redux";
+import DataView from "./DataView";
+import HistoryView from "./HistoryView";
 
 export default function SideBar() {
-  const { patient } = useSelector((state) => state.patientSlice);
+  const { error, loading, patient } = useSelector((state) => state.patientSlice);
   
-  const { name, age, gender, address, phone_number, email } = patient;
-
-  const { error, loading, history } = useSelector(
-    (state) => state.historySlice
-  );
-
-  const {
-    Diabetes,
-    Cancer,
-    Heart_Disease,
-    High_Blood_Pressure,
-    High_Cholesterol,
-  } = history;
-
   return (
     <>
       {error && !loading && (
@@ -36,47 +24,15 @@ export default function SideBar() {
       ) : (
         <ul className={style.sideBar}>
           <li>
-            <div>
-              <h4 className={style.title}>Patient Data</h4>
-              <p className={style.text}>
-                <b>Name:</b> {name}
-              </p>
-              <p className={style.text}>
-                <b>Age:</b> {age}
-              </p>
-              <p className={style.text}>
-                <b>Gender:</b> {gender}
-              </p>
-              <p className={style.text}>
-                <b>Phone:</b> {phone_number}
-              </p>
-              <p className={style.text}>
-                <b>email:</b> {email}
-              </p>
-              <p className={style.text}>
-                <b>Address:</b> {address}
-              </p>
-            </div>
+            <DataView patient={patient}/>
           </li>
 
           <li>
             <h5 className={style.title}>Medical History</h5>
             <p className={style.text}>
-              <b>{name} has :</b>
+              <b>{patient.name} has :</b>
             </p>
-            <div>
-              <p className={style.text}>{Diabetes && <span>Diabetes</span>}</p>
-              <p className={style.text}>{Cancer && <span>Cancer</span>}</p>
-              <p className={style.text}>
-                {Heart_Disease && <span>Heart Disease</span>}
-              </p>
-              <p className={style.text}>
-                {High_Blood_Pressure && <span>High Blood Pressure</span>}
-              </p>
-              <p className={style.text}>
-                {High_Cholesterol && <span>High Cholesterol</span>}
-              </p>
-            </div>
+           <HistoryView />
           </li>
         </ul>
       )}

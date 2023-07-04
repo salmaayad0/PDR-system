@@ -31,7 +31,7 @@ export default function TableDoctor() {
               <th>Phone Number</th>
               <th>Email</th>
               <th>Address</th>
-              {/* <th>View Session</th> */}
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>

@@ -8,7 +8,7 @@
     text-align: center;
     color: var(--purple);
     font-family: var(--font-three);
-    font-weight: bold;
+    font-weight: bolder;
     position: relative;
     z-index: 3;
 }

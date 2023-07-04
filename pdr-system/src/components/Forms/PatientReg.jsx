@@ -64,7 +64,8 @@ export default function PatientReg() {
           // submit form data
           // send data to backend
           dispatch(addPatient(formData));
-          if(!error) navigate('/allpatients');
+          if(!error) 
+          navigate(`/allpatients`);
         } else {
           setErrors(validationErrors);
         }
@@ -180,7 +181,7 @@ export default function PatientReg() {
 
         <div className="text-center">
           <button type="submit" className={style.sumitButton}>
-            Login
+            Add Patient
           </button>
         { error && <span className="error text-danger">{error}</span>}
         </div>

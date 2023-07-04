@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
 import { BgImg } from "../components/Background/Bg.styles";
-import HistoryForm from "../components/Forms/HistoryForm";
 import style from "../components/Forms/Form.module.css";
 import { useParams } from "react-router-dom";
-import TabDoc from "../components/Tabs/TabDoc";
-import Navbar from "../components/Tabs/Navbar";
-import { useDispatch, useSelector } from "react-redux";
-import { patientHistory } from "../redux/slices/history";
+import { useDispatch } from "react-redux";
+import TabAdmin from "../components/Tabs/TabAdmin";
+import { getEmailPatient } from "../redux/slices/patient";
+import HistoryFormAdd from "../components/Forms/HistoryFormAdd";
 
-export default function History() {
-  const { patientId } = useParams();
+export default function AddHistory() {
+  const { patEmail } = useParams();
+  console.log(patEmail);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(patientHistory(patientId));
+    dispatch(getEmailPatient(patEmail));
   });
 
-  const { history } = useSelector( state => state.historySlice)
+
+  
   return (
     <section className="main">
-      <Navbar />
       <BgImg>
       <div
         data-aos="fade-down"
@@ -30,7 +30,7 @@ export default function History() {
           + style.formContainer
         }
       >
-        <TabDoc />
+        <TabAdmin />
       </div>
 
         <div
@@ -45,10 +45,7 @@ export default function History() {
           <div className={style.title}>
             <h2>Patient's medical history</h2>
           </div>
-          <HistoryForm 
-          patientId={patientId} 
-          historyData ={history}
-          />
+          <HistoryFormAdd />
         </div>
       </BgImg>
     </section>

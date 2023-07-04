@@ -6,53 +6,38 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function SessionForm(props) {
-  const patientId = props.patientId;
-
-  const [formData, setFormData] = useState({
-    number: 10,
-    diagnosis: "",
-    date: "",
-    medicine: "",
-    medical_analysis: "",
-    doc_name: 3,
-    pat_name: patientId });
-
-  const [errors, setErrors] = useState({});
+  const patientId = Number(props.patientId);
+  const docId = Number(props.docId);
 
   const dispatch = useDispatch();
 
-  const { error } = useSelector( state => state.sessionSlice )
+  const { error, loading } = useSelector( state => state.sessionSlice )
 
   const navigate = useNavigate();
+  
+  const [formData, setFormData] = useState({
+    number: 0,
+    medical_diagnose: "",
+    date: '',
+    medicine: "",
+    medical_analysis: "",
+    doc_name: docId,
+    pat_name: patientId
+  });
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });};
-
-    const validateFormData = (data) => {
-      const errors = {};
-  
-      if (!data.diagnosis) errors.diagnosis = "diagnosis is required";
-  
-      if (!data.date) errors.date = "date is required";
-
-      if (!data.medicine) errors.medicine = "medicine is required";
-  
-      return errors;
+  const { name, value } = event.target;
+  setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const validationErrors = validateFormData(formData);
-    if (Object.keys(validationErrors).length === 0) {
-      // submit form data
-      // send data to backend
-      dispatch(addSession(formData))
-      if(!error) console.log('done');
-    } else {
-      setErrors(validationErrors);
+    dispatch(addSession(formData));
+    if(!error) {
+      navigate(`/Viewprofile/${patientId}`)
     }
   };
+
 
   return (
     <>
@@ -63,16 +48,29 @@ export default function SessionForm(props) {
         <div className={`mb-2 `+ style.formInput}>
           <input
             className=''
-            type="text"
-            name="diagnosis"
-            placeholder="Medical Diagnosis"
-            aria-label="Medical Diagnosis"
-            id="Diagnosis"
-            value={formData.diagnosis}
+            type="number"
+            name="number"
+            placeholder="Session Number"
+            aria-label="Session Number"
+            id="number"
+            value={formData.number}
             onChange={handleInputChange}
             required
           />
-          { errors.diagnosis && <span className="error">{errors.diagnosis}</span>}
+        </div>
+
+        <div className={`mb-2 `+ style.formInput}>
+          <input
+            className=''
+            type="text"
+            name="medical_diagnose"
+            placeholder="Medical Diagnosis"
+            aria-label="Medical Diagnosis"
+            id="Diagnosis"
+            value={formData.medical_diagnose}
+            onChange={handleInputChange}
+            required
+          />
         </div>
 
         <div className={`mb-2 `+ style.formInput}>
@@ -86,8 +84,8 @@ export default function SessionForm(props) {
             onChange={handleInputChange}
             required
           />
-          { errors.date && <span className="error">{errors.date}</span>}
         </div>
+
         <div className={`mb-2 `+ style.formInput}>
           <textarea
             className=''
@@ -100,7 +98,6 @@ export default function SessionForm(props) {
             onChange={handleInputChange}
             required
           ></textarea>
-          { errors.medicine && <span className="error">{errors.medicine}</span>}
         </div>
         
         <div className={`mb-2 `+ style.formInput}>
@@ -117,10 +114,21 @@ export default function SessionForm(props) {
         </div>
        
         <div className="text-center">
-          <button type="submit" className={style.sumitButton}>
+          <button 
+          type="submit" 
+          className={style.sumitButton}
+          >
             Add Session
           </button>
         </div>
+        {loading && (
+                <div className="d-flex justify-content-center align-items-center">
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              )}
+        { error && <span className="error text-danger">{error}</span>}
 
       </form>
       

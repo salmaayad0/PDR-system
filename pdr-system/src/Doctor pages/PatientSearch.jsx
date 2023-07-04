@@ -1,12 +1,14 @@
 import React from "react";
-import { BgImg } from "../components/Background/Bg.styles";
-import style from "../components/Forms/Form.module.css";
-import PatientSearchForm from '../components/Forms/PatientSearchForm';
+import { BgImg } from "../components/Background/Bg.styles"
+import style from "../components/Forms/Form.module.css"
+import Navbar from "../components/Tabs/Navbar"
+import PatientSearchFormDoc from "./PatientSearchFormDoc";
 
 export default function Patient() {
   return (
     <>
     <section className="main">
+      <Navbar />
       <BgImg>
         <div
           data-aos="zoom-in"
@@ -17,7 +19,7 @@ export default function Patient() {
             + style.formContainer
           }
         >
-          <PatientSearchForm />
+          <PatientSearchFormDoc />
         </div>
       </BgImg>
     </section>

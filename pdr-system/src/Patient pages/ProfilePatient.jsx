@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import SideBar from "../components/Profile/SideBar";
-import AllSessions from "../components/Profile/AllSessions";
 import style from "../components/Profile/Profile.module.css";
 import { useDispatch } from "react-redux";
-import { patientSessions } from "../redux/slices/session";
-import { patientHistory } from "../redux/slices/history";
 import { useParams } from "react-router-dom";
 import { getOnePatient } from "../redux/slices/patient";
+import { patientSessions } from "../redux/slices/session";
+import { patientHistory } from "../redux/slices/history";
+import SideBar from "../components/Profile/SideBar";
+import AllSessions from "../components/Profile/AllSessions";
+
 
 export default function ProfilePatient() {
   const { patientId } = useParams();

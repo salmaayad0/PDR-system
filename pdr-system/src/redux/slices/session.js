@@ -23,7 +23,7 @@ export const addSession = createAsyncThunk('addSession', async (sessionObj, thun
         const { data } = await axios.post(`http://127.0.0.1:8000/patients/addsession/`, sessionObj);
         return data
     } catch (error) {
-        return rejectWithValue('this patient has no history')
+        return rejectWithValue(error)
     }
 })
 
@@ -43,6 +43,7 @@ export const sessionSlice = createSlice({
         builder.addCase(patientSessions.fulfilled, (state, action) => {
             state.loading = false;
             state.sessions = action.payload;
+            state.error = null;
         })
 
         builder.addCase(patientSessions.rejected, (state, action) => {
@@ -59,6 +60,7 @@ export const sessionSlice = createSlice({
         builder.addCase(addSession.fulfilled, (state, action) => {
             state.loading = false;
             state.sessions.push(action.payload);
+            state.error = null;
         })
 
         builder.addCase(addSession.rejected, (state, action) => {
