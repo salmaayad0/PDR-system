@@ -10,7 +10,6 @@ export default function AllPatients(props) {
 
   const deleteHandling = () => {
     dispatch(deletePatient(id));
-    window.location.reload();
   }
 
 

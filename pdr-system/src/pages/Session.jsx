@@ -11,6 +11,7 @@ export default function Session() {
   const { patientId } = useParams();
   const { doctor } = useSelector( state => state.doctorSlice);
   const docId = doctor.id;
+  console.log(docId);
 
   return (
     <section className="main">

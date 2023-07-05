@@ -73,7 +73,9 @@ export default function ProfileForDoc() {
                     Update History
                   </Link>
                 </div>
-                <AllSessions />
+                <AllSessions 
+                doc={doc}
+                />
               </div>
             </div>
           </div>

@@ -9,7 +9,6 @@ export default function AllDoctors(props) {
 
   const deleteHandling = () => {
     dispatch(deleteDoctor(id));
-    window.location.reload();
   }
 
   return (
